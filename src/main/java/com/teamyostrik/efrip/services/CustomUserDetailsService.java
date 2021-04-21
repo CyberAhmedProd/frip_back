@@ -16,8 +16,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.teamyostrik.efrip.models.Address;
 import com.teamyostrik.efrip.models.Role;
 import com.teamyostrik.efrip.models.User;
+import com.teamyostrik.efrip.repositories.AddressRepository;
 import com.teamyostrik.efrip.repositories.RoleRepository;
 import com.teamyostrik.efrip.repositories.UserRepository;
 
@@ -34,15 +36,24 @@ public class CustomUserDetailsService implements UserDetailsService {
 	
 	@Autowired
 	private PasswordEncoder bCryptPasswordEncoder;
+	@Autowired
+	private AddressRepository addressRepository;
 	
 	public User findUserByEmail(String email) {
 	    return userRepository.findByEmail(email);
 	}
 	
 	public void saveUser(User user) {
+		Address addressData = new Address();
+		addressData.setCity(user.getAddress().getCity());
+		addressData.setCountry(user.getAddress().getCountry());
+		addressData.setStreet(user.getAddress().getStreet());
+		addressData.setCodePostal(user.getAddress().getCodePostal());
+		Address addSend=  addressRepository.save(addressData);
+		user.setAddress(addSend);
 	    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 	    user.setEnabled(true);
-	    Role userRole = roleRepository.findByRole("ADMIN");
+	    Role userRole = roleRepository.findByRole("Admin");
 	    user.setRoles(new HashSet<>(Arrays.asList(userRole)));
 	    userRepository.save(user);
 	}

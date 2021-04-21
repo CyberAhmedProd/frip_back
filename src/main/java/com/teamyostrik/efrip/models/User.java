@@ -20,7 +20,8 @@ public class User {
 	private String lastName;
 	private String avatar;
 	private String token;
-	
+	private UserState userState;
+	private Address address;
 	private boolean enabled;
 	@DBRef
     private Set<Role> roles;
@@ -29,7 +30,7 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 	public User(String email, String password, String firstName, String lastName, String avatar, String token,
-			boolean enabled, Set<Role> roles) {
+			UserState userState, Address address, boolean enabled, Set<Role> roles) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -37,6 +38,8 @@ public class User {
 		this.lastName = lastName;
 		this.avatar = avatar;
 		this.token = token;
+		this.userState = userState;
+		this.address = address;
 		this.enabled = enabled;
 		this.roles = roles;
 	}
@@ -93,6 +96,26 @@ public class User {
 	}
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public UserState getUserState() {
+		return userState;
+	}
+
+	public void setUserState(UserState userState) {
+		this.userState = userState;
+	}
+
+
+
+	public Address getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
     
 	

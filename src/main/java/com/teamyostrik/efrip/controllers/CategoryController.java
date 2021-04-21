@@ -30,7 +30,7 @@ public class CategoryController {
         return categoryService.getCategory(id);
     }
     @PostMapping
-    public void addCategory(Category category){
+    public void addCategory(@RequestBody Category category){
         categoryService.addCategory(category);
     }
     @DeleteMapping(path ="{categoryid}")

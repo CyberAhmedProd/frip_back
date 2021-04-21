@@ -62,7 +62,7 @@ public class AuthController {
 	public ResponseEntity register(@RequestBody User user) {
 		User userExists = userService.findUserByEmail(user.getEmail());
 		if (userExists != null) {
-			throw new BadCredentialsException("User with email: " + user.getEmail() + " already exists");
+			throw new BadCredentialsException("User with email: " + user.getEmail() + " already exists!");
 		}
 		userService.saveUser(user);
 		Map<Object, Object> model = new HashMap<>();

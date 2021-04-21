@@ -26,8 +26,8 @@ public class ProductController  {
     public Optional<Product> getProductById(@PathVariable ("productid") String id){
         return productService.getProduct(id);
     }
-    @PostMapping
-    public void addProduct(Product product) {
+    @PostMapping (path ="/add")
+    public void addProduct(@RequestBody Product product) {
         productService.addProduct(product);
     }
     @DeleteMapping(path = "{productid}")
@@ -35,7 +35,7 @@ public class ProductController  {
         productService.deleteProduct(id);
     }
     @PutMapping(path = "{productid}")
-    public void updateProduct(@PathVariable ("productid") String id, Product product){
+    public void updateProduct(@PathVariable ("productid") String id, @RequestBody Product product){
         productService.updateProduct(id, product);
     }
 

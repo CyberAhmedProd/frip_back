@@ -4,6 +4,9 @@ package com.teamyostrik.efrip.models;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,7 +16,7 @@ public class Product {
     @Id
     String id;
     String name;
-    @CreatedBy
+    @DBRef
     User  user;
     Category category;
     String details;
@@ -22,7 +25,7 @@ public class Product {
     boolean featured;
     String image;
     String images;
-    @DateTimeFormat(style = "M-")
+    @DateTimeFormat(style = "M-DD-YY")
     @CreatedDate
     private Date createdDate;
 	public Product(String name, User user, Category category, String details, Double price, String description,

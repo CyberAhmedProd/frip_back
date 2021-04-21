@@ -1,29 +1,34 @@
 package com.teamyostrik.efrip.models;
 
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.IndexDirection;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 @Document(collection ="product")
 public class Product {
+	/**tttt*/
     @Id
     private String id;
+
     private String name;
+
     private String user;
+
     private String category;
+
     private String details;
+
     private Double price;
+
     private String description;
+
     private boolean featured;
+
     private String image;
+
     private String images;
+
     private Date createdDate;
 
 	public Product() {

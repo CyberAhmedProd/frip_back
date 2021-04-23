@@ -4,15 +4,18 @@ public class LigneItem {
 	private String id;
 	private Short quantity;
 	private float price;
+	private Product product;
 	public LigneItem() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public LigneItem(Short quantity, float price) {
+	public LigneItem(Short quantity, float price, Product product) {
 		super();
 		this.quantity = quantity;
 		this.price = price;
+		this.product = product;
 	}
+
 	public String getId() {
 		return id;
 	}

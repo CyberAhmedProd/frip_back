@@ -20,10 +20,12 @@ public class Order {
     private Timestamp orderedDate;
     private Timestamp shippedDate;
     private float totalPrice;
+    private List<LigneItem> listLigneItem;
     public Order() {
     }
-    public Order(User user, List<Product> products, Address billingAddress, OrderStatus status, Timestamp orderedDate,
-			Timestamp shippedDate, float totalPrice) {
+  
+	public Order(User user, List<Product> products, Address billingAddress, OrderStatus status, Timestamp orderedDate,
+			Timestamp shippedDate, float totalPrice, List<LigneItem> listLigneItem) {
 		super();
 		this.user = user;
 		this.products = products;
@@ -32,7 +34,9 @@ public class Order {
 		this.orderedDate = orderedDate;
 		this.shippedDate = shippedDate;
 		this.totalPrice = totalPrice;
+		this.listLigneItem = listLigneItem;
 	}
+
 	public String getId() {
         return id;
     }
@@ -88,4 +92,13 @@ public class Order {
 	public void setTotalPrice(float totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+
+	public List<LigneItem> getListLigneItem() {
+		return listLigneItem;
+	}
+
+	public void setListLigneItem(List<LigneItem> listLigneItem) {
+		this.listLigneItem = listLigneItem;
+	}
+	
 }

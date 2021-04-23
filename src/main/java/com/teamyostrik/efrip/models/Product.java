@@ -1,13 +1,9 @@
 package com.teamyostrik.efrip.models;
-
-
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 @Document(collection ="product")
 public class Product {
@@ -111,8 +107,4 @@ public class Product {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-    
-
-
-
 }

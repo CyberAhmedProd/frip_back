@@ -22,19 +22,19 @@ public class UserController {
 	@Autowired
 	private UserService userService;
     @GetMapping
-    public List<User> getAllProducts(){
+    public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
     @GetMapping(path ="{id}")
-    public Optional<User> getProductById(@PathVariable ("id") String id){
+    public Optional<User> getUserById(@PathVariable ("id") String id){
         return userService.getUser(id);
     }
     @PostMapping
-    public void addProduct(@RequestBody User user) {
+    public void addUser(@RequestBody User user) {
     	userService.addUser(user);
     }
-    @DeleteMapping(path = "{productid}")
-    public void deleteProduct(@PathVariable ("productid") String id ){
+    @DeleteMapping(path = "{id}")
+    public void deleteUser(@PathVariable ("id") String id ){
     	userService.deleteUser(id);
     }
 

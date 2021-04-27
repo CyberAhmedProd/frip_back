@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -62,10 +63,10 @@ public class AuthController {
 		User userExists = userService.findUserByEmail(user.getEmail());
 		User usernameExists = userRepository.findByUsername(user.getUsername());
 		if (userExists != null) {
-			throw new BadCredentialsException("User with email: " + user.getEmail() + " already exists!");
+			return new ResponseEntity<>(0,HttpStatus.FOUND);
 		}
 		else if(usernameExists != null) {
-			throw new BadCredentialsException("User with email: " + user.getUsername() + " already exists!");
+			return new ResponseEntity<>(1,HttpStatus.FOUND);
 		}
 		else {
 			userService.saveUser(user);

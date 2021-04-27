@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,11 +32,11 @@ public class PhotoController {
 	    return "redirect:/photos/" + id;
 	}
 	@GetMapping("/photos/{id}")
-	public String getPhoto(@PathVariable String id, Model model) {
+	public ResponseEntity getPhoto(@PathVariable String id, Model model) {
 	    Photo photo = photoService.getPhoto(id);
 	    model.addAttribute("title", photo.getTitle());
 	    model.addAttribute("image", 
 	      Base64.getEncoder().encodeToString(photo.getImage().getData()));
-	    return "photos";
+	    return new ResponseEntity(model,HttpStatus.OK);
 	}
 }

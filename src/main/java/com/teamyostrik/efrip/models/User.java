@@ -19,7 +19,7 @@ public class User {
 	private String password;
 	private String firstName;
 	private String lastName;
-	private String avatar;
+	private Photo avatar;
 	private String token;
 	private UserState userState;
 	private Address address;
@@ -33,7 +33,7 @@ public class User {
 	
 	
 
-	public User(String email, String username, String password, String firstName, String lastName, String avatar,
+	public User(String email, String username, String password, String firstName, String lastName, Photo avatar,
 			String token, UserState userState, Address address, Status status, Set<Role> roles) {
 		super();
 		this.email = email;
@@ -94,10 +94,10 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getAvatar() {
+	public Photo getAvatar() {
 		return avatar;
 	}
-	public void setAvatar(String avatar) {
+	public void setAvatar(Photo avatar) {
 		this.avatar = avatar;
 	}
 	public String getToken() {

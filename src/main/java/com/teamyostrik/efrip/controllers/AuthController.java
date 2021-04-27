@@ -32,15 +32,14 @@ public class AuthController {
 
 	@Autowired
 	AuthenticationManager authenticationManager;
-
 	@Autowired
 	JwtTokenProvider jwtTokenProvider;
-
 	@Autowired
 	UserRepository users;
-
 	@Autowired
 	private CustomUserDetailsService userService;
+	@Autowired
+	private UserRepository userRepository;
 
 	@SuppressWarnings("rawtypes")
 	@PostMapping("/login")
@@ -61,12 +60,19 @@ public class AuthController {
 	@PostMapping("/register")
 	public ResponseEntity register(@RequestBody User user) {
 		User userExists = userService.findUserByEmail(user.getEmail());
+		User usernameExists = userRepository.findByUsername(user.getUsername());
 		if (userExists != null) {
 			throw new BadCredentialsException("User with email: " + user.getEmail() + " already exists!");
 		}
-		userService.saveUser(user);
-		Map<Object, Object> model = new HashMap<>();
-		model.put("message", "User registered successfully");
-		return ok(model);
+		else if(usernameExists != null) {
+			throw new BadCredentialsException("User with email: " + user.getUsername() + " already exists!");
+		}
+		else {
+			userService.saveUser(user);
+			Map<Object, Object> model = new HashMap<>();
+			model.put("message", "User registered successfully");
+			return ok(model);
+		}
+		
 	}
 }

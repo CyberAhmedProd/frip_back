@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.teamyostrik.efrip.models.Address;
 import com.teamyostrik.efrip.models.Role;
+import com.teamyostrik.efrip.models.Status;
 import com.teamyostrik.efrip.models.User;
 import com.teamyostrik.efrip.repositories.AddressRepository;
 import com.teamyostrik.efrip.repositories.RoleRepository;
@@ -52,7 +53,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		Address addSend=  addressRepository.save(addressData);
 		user.setAddress(addSend);
 	    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-	    user.setEnabled(true);
+	    user.setStatus(Status.pending);
 	    Role userRole = roleRepository.findByRole("Admin");
 	    user.setRoles(new HashSet<>(Arrays.asList(userRole)));
 	    userRepository.save(user);

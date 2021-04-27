@@ -15,6 +15,7 @@ public class User {
 	private String id;
 	@Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
 	private String email;
+	private String username; 
 	private String password;
 	private String firstName;
 	private String lastName;
@@ -22,17 +23,21 @@ public class User {
 	private String token;
 	private UserState userState;
 	private Address address;
-	private boolean enabled;
+	private Status status;
 	@DBRef
     private Set<Role> roles;
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public User(String email, String password, String firstName, String lastName, String avatar, String token,
-			UserState userState, Address address, boolean enabled, Set<Role> roles) {
+	
+	
+
+	public User(String email, String username, String password, String firstName, String lastName, String avatar,
+			String token, UserState userState, Address address, Status status, Set<Role> roles) {
 		super();
 		this.email = email;
+		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -40,9 +45,12 @@ public class User {
 		this.token = token;
 		this.userState = userState;
 		this.address = address;
-		this.enabled = enabled;
+		this.status = status;
 		this.roles = roles;
 	}
+
+
+
 	public String getId() {
 		return id;
 	}
@@ -61,6 +69,19 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public String getUsername() {
+		return username;
+	}
+
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -85,38 +106,32 @@ public class User {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	public boolean isEnabled() {
-		return enabled;
-	}
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
 	public Set<Role> getRoles() {
 		return roles;
 	}
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-
 	public UserState getUserState() {
 		return userState;
 	}
-
 	public void setUserState(UserState userState) {
 		this.userState = userState;
 	}
-
-
-
 	public Address getAddress() {
 		return address;
 	}
-
-
-
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-    
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
 	
 }

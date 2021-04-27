@@ -24,7 +24,7 @@ public class PhotoController {
 	private PhotoService photoService;
 	@PostMapping("/photos/add")
 	public String addPhoto(@RequestParam("title") String title, 
-	  @RequestParam("image") MultipartFile image, Model model) 
+	  @RequestParam("image") MultipartFile image) 
 	  throws IOException {
 	    String id = photoService.addPhoto(title, image);
 	    return "redirect:/photos/" + id;

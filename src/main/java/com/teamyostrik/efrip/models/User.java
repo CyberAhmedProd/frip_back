@@ -19,9 +19,11 @@ public class User {
 	private String password;
 	private String firstName;
 	private String lastName;
+	@DBRef
 	private Photo avatar;
 	private String token;
 	private UserState userState;
+	@DBRef
 	private Address address;
 	private Status status;
 	@DBRef

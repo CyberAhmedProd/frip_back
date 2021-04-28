@@ -63,15 +63,22 @@ public class AuthController {
 		User userExists = userService.findUserByEmail(user.getEmail());
 		User usernameExists = userRepository.findByUsername(user.getUsername());
 		if (userExists != null) {
-			return new ResponseEntity<>(0,HttpStatus.FOUND);
+			Map<Object, Object> model = new HashMap<>();
+			model.put("message", "Username already exists!");
+			model.put("success",0);
+			return ok(model);
 		}
 		else if(usernameExists != null) {
-			return new ResponseEntity<>(1,HttpStatus.FOUND);
+			Map<Object, Object> model = new HashMap<>();
+			model.put("message", "Email already exists!");
+			model.put("success",-1);
+			return ok(model);
 		}
 		else {
 			userService.saveUser(user);
 			Map<Object, Object> model = new HashMap<>();
 			model.put("message", "User registered successfully");
+			model.put("success",1);
 			return ok(model);
 		}
 		

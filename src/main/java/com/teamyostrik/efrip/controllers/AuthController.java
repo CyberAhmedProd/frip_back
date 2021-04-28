@@ -71,7 +71,7 @@ public class AuthController {
 		else if(usernameExists != null) {
 			Map<Object, Object> model = new HashMap<>();
 			model.put("message", "Username already exists!");
-			model.put("success",-1);
+			model.put("success",0);
 			return ok(model);
 		}
 		else {

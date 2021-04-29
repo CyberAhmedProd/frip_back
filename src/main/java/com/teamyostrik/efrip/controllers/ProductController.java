@@ -28,8 +28,8 @@ public class ProductController  {
         return productService.getProduct(id);
     }
     @PostMapping (path ="/add")
-    public void addProduct(@RequestBody Product product, @RequestBody List<MultipartFile> imageList) {
-        productService.addProduct(product,imageList);
+    public void addProduct(@RequestBody Product product) {
+        productService.addProduct(product);
     }
     @DeleteMapping(path = "/delete/{productid}")
     public void deleteProduct(@PathVariable ("productid") String id ){

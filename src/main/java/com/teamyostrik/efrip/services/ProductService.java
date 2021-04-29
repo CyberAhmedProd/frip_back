@@ -30,14 +30,7 @@ public class ProductService {
     public Optional<Product> getProduct (String id){
         return productRepository.findById(id);
     }
-    public void addProduct(Product product, List<MultipartFile> imageList){
-        imageList.forEach( photo -> {
-            try {
-                product.getImages().add(photoService.getPhoto(photoService.addPhoto("test",photo)));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+    public void addProduct(Product product){
         productRepository.save(product);
     }
     public void deleteProduct(String id){

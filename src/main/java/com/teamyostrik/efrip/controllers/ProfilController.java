@@ -36,7 +36,7 @@ public class ProfilController {
 	 }
 	 @PostMapping ()
 	 public void addProduct(@RequestBody Profil profil) {
-		 profileService.addProfil(profil);;
+		 profileService.addProfil(profil);
 	 }
 	 @DeleteMapping(path = "{id}")
 	 public void deleteProduct(@PathVariable ("id") String id ){

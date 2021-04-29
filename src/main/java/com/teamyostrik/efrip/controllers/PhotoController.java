@@ -2,6 +2,7 @@ package com.teamyostrik.efrip.controllers;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.teamyostrik.efrip.models.Photo;
 import com.teamyostrik.efrip.services.PhotoService;
+
+import static org.springframework.http.ResponseEntity.ok;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
@@ -25,11 +29,25 @@ public class PhotoController {
 	@Autowired
 	private PhotoService photoService;
 	@PostMapping("/photos/add")
-	public String addPhoto(@RequestParam("title") String title, 
-	  @RequestParam("image") MultipartFile image) 
-	  throws IOException {
-	    String id = photoService.addPhoto(title, image);
-	    return "redirect:/photos/" + id;
+	public ResponseEntity addPhoto(@RequestParam("title") String title,
+	  @RequestParam("image") MultipartFile image)
+	   {
+		   String id = null;
+		   try {
+			   id = photoService.addPhoto(title, image);
+			   HashMap <Object ,Object > model = new HashMap<Object,Object>();
+			   model.put("success",1);
+			   model.put("message","photo added successfully");
+			   model.put("id",id);
+			   return ok(model);
+		   } catch (IOException e) {
+			   HashMap <Object ,Object > model = new HashMap<Object,Object>();
+			   model.put("success",0);
+			   model.put("message",e.getMessage());
+			   return ok(model);
+
+		   }
+
 	}
 	@GetMapping("/photos/{id}")
 	public ResponseEntity getPhoto(@PathVariable String id, Model model) {

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.teamyostrik.efrip.models.Product;
 import com.teamyostrik.efrip.services.ProductService;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,14 +28,14 @@ public class ProductController  {
         return productService.getProduct(id);
     }
     @PostMapping (path ="/add")
-    public void addProduct(@RequestBody Product product) {
-        productService.addProduct(product);
+    public void addProduct(@RequestBody Product product, @RequestBody List<MultipartFile> imageList) {
+        productService.addProduct(product,imageList);
     }
-    @DeleteMapping(path = "{productid}")
+    @DeleteMapping(path = "/delete/{productid}")
     public void deleteProduct(@PathVariable ("productid") String id ){
         productService.deleteProduct(id);
     }
-    @PutMapping(path = "{productid}")
+    @PutMapping(path = "/update/{productid}")
     public void updateProduct(@PathVariable ("productid") String id, @RequestBody Product product){
         productService.updateProduct(id, product);
     }

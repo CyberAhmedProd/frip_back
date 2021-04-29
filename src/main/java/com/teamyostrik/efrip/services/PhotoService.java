@@ -22,7 +22,8 @@ public class PhotoService {
         photo.setTitle(title);
         photo.setImage(
           new Binary(BsonBinarySubType.BINARY, file.getBytes())); 
-        photo = photoRepo.insert(photo); return photo.getId(); 
+        photo = photoRepo.insert(photo);
+        return photo.getId();
     }
 
     public Photo getPhoto(String id) { 

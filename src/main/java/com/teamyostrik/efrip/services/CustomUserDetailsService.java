@@ -45,13 +45,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 	}
 	
 	public void saveUser(User user) {
-		Address addressData = new Address();
-		addressData.setCity(user.getAddress().getCity());
-		addressData.setCountry(user.getAddress().getCountry());
-		addressData.setStreet(user.getAddress().getStreet());
-		addressData.setCodePostal(user.getAddress().getCodePostal());
-		Address addSend=  addressRepository.save(addressData);
-		user.setAddress(addSend);
 	    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 	    user.setStatus(Status.pending);
 	    Role userRole = roleRepository.findByRole("Admin");

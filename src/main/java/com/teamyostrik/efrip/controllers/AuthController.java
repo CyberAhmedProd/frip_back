@@ -51,6 +51,7 @@ public class AuthController {
 			String token = jwtTokenProvider.createToken(email, this.users.findByEmail(email).getRoles());
 			User userData = users.findByEmail(email);
 			userData.setToken(token);
+			userRepository.save(userData);
 			return ok(userData);
 		} catch (AuthenticationException e) {
 			throw new BadCredentialsException("Invalid email/password supplied");

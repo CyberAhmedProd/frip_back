@@ -4,7 +4,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,14 +35,17 @@ public class ProfileService {
 	private UserRepository userRepository;
 	@Autowired
 	private AddressRepository addressRepository;
-	private PhotoRepository photoRepository2;
+
 
 	    public List<Profil> getAllProfil () {
 	        return profilRepository.findAll();
 	    }
 
-	    public Optional<Profil> getProfil (String id){
-	        return profilRepository.findById(id);
+	    public Profil getProfil (String id){
+	    
+	    	 Optional<User> userData = userRepository.findById(id);
+	    	 System.out.println(userData);
+	        return profilRepository.findByIdUser(userData.get().getId()).get();
 	    }
 	    public void addProfil(Profil profil){
 		    Optional<User> userData = userRepository.findById(profil.getUser().getId());

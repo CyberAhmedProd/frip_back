@@ -27,7 +27,7 @@ public class ProfilController {
 	 public List<Profil> getAllProducts(){
 		 return profileService.getAllProfil();
 	 }
-	 @GetMapping(path ="/profil/{id}")
+	 @GetMapping("/profil/{id}")
 	 public Profil getProfilByUser(@PathVariable("id") String id){
 	     return profileService.getProfil(id);
 	 }

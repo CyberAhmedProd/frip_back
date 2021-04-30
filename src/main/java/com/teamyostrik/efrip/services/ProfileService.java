@@ -44,8 +44,7 @@ public class ProfileService {
 	    public Profil getProfil (String id){
 	    
 	    	 Optional<User> userData = userRepository.findById(id);
-	    	 System.out.println(userData);
-	        return profilRepository.findByIdUser(userData.get().getId()).get();
+	        return profilRepository.findByUser(userData.get()).get();
 	    }
 	    public void addProfil(Profil profil){
 		    Optional<User> userData = userRepository.findById(profil.getUser().getId());

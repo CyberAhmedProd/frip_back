@@ -58,9 +58,20 @@ public class CategoryController {
         categoryService.deleteCategory(id);
     }
 
-    @PostMapping(path = "{categoryid}")
-    public void updateCategory(@PathVariable("categoryid") String id, Category category) {
-        categoryService.updateCategory(id, category);
+    @PutMapping(path = "{categoryid}")
+    public ResponseEntity<HashMap<Object, Object>> updateCategory(@PathVariable("categoryid") String id, Category category) {
+        Category categoryNameExists = categoryService.findByName(category.getName());
+        HashMap<Object,Object> model = new HashMap<>();
+        if(categoryNameExists == null){
+            model.put("success",1);
+            model.put("message","category "+category.getName()+" updated successfully");
+            categoryService.updateCategory(id,category);
+        }
+        else {
+            model.put("success",0);
+            model.put("message","Category already Exists !");
+        }
+        return ok(model);
     }
 
 }

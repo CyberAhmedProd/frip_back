@@ -30,16 +30,14 @@ public class CategoryService {
     public void deleteCategory(String id){
         categoryRepository.deleteById(id);
     }
-    public boolean updateCategory(String id, Category category) {
+    public void updateCategory(String id, Category category) {
     	Optional<Category> categoryData = categoryRepository.findById(id);
     	if(categoryData.isPresent()) {
     		Category categoryUpdate = categoryData.get();
     		categoryUpdate.setName(category.getName());
     		categoryRepository.save(categoryUpdate);
-			return true;
 		}
-    	else
-    		return false;
+
       
     }
     public Category findByName(String name) {

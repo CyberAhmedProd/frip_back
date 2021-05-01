@@ -1,10 +1,9 @@
 package com.teamyostrik.efrip.models;
 
-import java.util.Set;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
-
+import org.springframework.data.mongodb.core.mapping.Document;
+@Document(collection = "profil")
 public class Profil {
 	@Id
 	private String id;

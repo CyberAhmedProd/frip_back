@@ -1,7 +1,7 @@
 package com.teamyostrik.efrip.controllers;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,36 +13,33 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.teamyostrik.efrip.models.Product;
 import com.teamyostrik.efrip.models.Profil;
-import com.teamyostrik.efrip.services.ProductService;
+
 import com.teamyostrik.efrip.services.ProfileService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping (path = "api/profil")
+@RequestMapping (path = "api")
 public class ProfilController {
 	 @Autowired
 	 private ProfileService profileService;
-	 @GetMapping
+	 @GetMapping(path = "/profil")
 	 public List<Profil> getAllProducts(){
 		 return profileService.getAllProfil();
 	 }
-	 @GetMapping(path ="{id}")
-	 public Optional<Profil> getProductById(@PathVariable ("id") String id){
+	 @GetMapping("/profil/{id}")
+	 public Profil getProfilByUser(@PathVariable("id") String id){
 	     return profileService.getProfil(id);
 	 }
-	 @PostMapping ()
+	 @PostMapping(path = "/profil")
 	 public void addProduct(@RequestBody Profil profil) {
 		 profileService.addProfil(profil);
 	 }
-	 @DeleteMapping(path = "{id}")
+	 @DeleteMapping(path = "/profil/{id}")
 	 public void deleteProduct(@PathVariable ("id") String id ){
 		 profileService.deleteProfil(id);;
 	 }
-	 @PutMapping(path = "{id}")
+	 @PutMapping(path = "/profil/{id}")
 	 public void updateProduct(@PathVariable ("id") String id, @RequestBody Profil profil){
 		 profileService.updateProfil(id, profil);
 	 }

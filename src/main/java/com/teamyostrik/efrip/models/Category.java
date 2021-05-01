@@ -6,8 +6,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "category")
 public class Category {
     @Id
-    String id;
-    String name;
+    private String id;
+    private String name;
     boolean status;
 
 	public Category() {

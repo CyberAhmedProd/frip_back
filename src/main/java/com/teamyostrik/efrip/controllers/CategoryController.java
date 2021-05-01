@@ -39,7 +39,7 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<HashMap<Object, Object>> addCategory(@RequestBody Category category) {
-        Category categoryNameExists = categoryService.findCategoryByName(category.getName());
+        Category categoryNameExists = categoryService.findByName(category.getName());
         HashMap<Object,Object> model = new HashMap<>();
         if(categoryNameExists != null){
             model.put("success",1);

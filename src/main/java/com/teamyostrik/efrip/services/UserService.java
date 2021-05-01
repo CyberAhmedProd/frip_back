@@ -53,9 +53,8 @@ public class UserService {
     	profilRepository.save(profilData);
     }
     public void deleteUser(String id){
-    	User userData = new User();
-    	userData.setId(id);
-    	profilRepository.deleteByUser(userData);
+    	Optional<User> userData = userRepository.findById(id);
+    	profilRepository.deleteByUser(userData.get());
     	userRepository.deleteById(id);
     }
    

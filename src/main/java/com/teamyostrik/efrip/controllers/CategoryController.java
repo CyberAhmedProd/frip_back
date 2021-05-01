@@ -2,13 +2,17 @@ package com.teamyostrik.efrip.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.teamyostrik.efrip.models.Category;
 import com.teamyostrik.efrip.services.CategoryService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 
 @CrossOrigin(origins = "*")
@@ -30,8 +34,23 @@ public class CategoryController {
         return categoryService.getCategory(id);
     }
     @PostMapping
-    public void addCategory(@RequestBody Category category){
-        categoryService.addCategory(category);
+    public ResponseEntity addCategory(@RequestBody Category category){
+        Category categoryNameExists = categoryService.findCategoryByName(category.getName());
+        if(categoryNameExists != null){
+            HashMap<Object,Object> model = new HashMap<Object,Object>();
+            model.put("success",1);
+            model.put("message","category "+category.getName()+" added successfully");
+            categoryService.addCategory(category);
+            return ok(model);
+        }
+        else {
+            HashMap<Object,Object> model = new HashMap<Object,Object>();
+            model.put("success",0);
+            model.put("message","Category already Exists !");
+            return ok(model);
+        }
+
+
     }
     @DeleteMapping(path ="{categoryid}")
     public void deleteCategory(@PathVariable ("categoryid") String id) {

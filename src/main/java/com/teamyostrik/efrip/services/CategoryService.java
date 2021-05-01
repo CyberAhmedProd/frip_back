@@ -42,4 +42,7 @@ public class CategoryService {
     		return false;
       
     }
+    public Category findCategoryByName(String name) {
+        return this.categoryRepository.findCategoryByName(name);
+    }
 }

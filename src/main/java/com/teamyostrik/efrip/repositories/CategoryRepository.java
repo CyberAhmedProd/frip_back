@@ -7,4 +7,5 @@ import com.teamyostrik.efrip.models.Category;
 
 @Repository
 public interface CategoryRepository extends MongoRepository<Category,String> {
+    Category findByName(String name);
 }

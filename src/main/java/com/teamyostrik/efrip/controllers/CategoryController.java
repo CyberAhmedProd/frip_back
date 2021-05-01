@@ -34,8 +34,20 @@ public class CategoryController {
         return categoryService.getCategory(id);
     }
     @PostMapping
-    public void addCategory(@RequestBody Category category){
-        categoryService.addCategory(category);
+    public ResponseEntity<HashMap<Object,Object>> addCategory(@RequestBody Category category){
+
+        Category categoryNameExists = categoryService.findCategoryByName(category.getName());
+        HashMap<Object,Object> model = new HashMap<>();
+        if(categoryNameExists != null){
+            model.put("success",1);
+            model.put("message","category "+category.getName()+" added successfully");
+            categoryService.addCategory(category);
+        }
+        else {
+            model.put("success",0);
+            model.put("message","Category already Exists !");
+        }
+        return ok(model);
 
 
     }

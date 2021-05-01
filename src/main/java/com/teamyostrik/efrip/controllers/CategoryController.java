@@ -59,7 +59,7 @@ public class CategoryController {
     }
 
     @PutMapping(path = "{categoryid}")
-    public ResponseEntity<HashMap<Object, Object>> updateCategory(@PathVariable("categoryid") String id, Category category) {
+    public ResponseEntity<HashMap<Object, Object>> updateCategory(@PathVariable("categoryid") String id,@RequestBody Category category) {
         Category categoryNameExists = categoryService.findByName(category.getName());
         HashMap<Object,Object> model = new HashMap<>();
         if(categoryNameExists == null){

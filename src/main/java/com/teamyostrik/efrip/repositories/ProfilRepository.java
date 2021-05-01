@@ -13,4 +13,5 @@ import com.teamyostrik.efrip.models.User;
 public interface ProfilRepository extends MongoRepository<Profil, String>{
 	
 	Optional<Profil> findByUser(User user);
+	void deleteByUser(User user);
 }

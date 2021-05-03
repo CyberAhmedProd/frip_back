@@ -35,6 +35,8 @@ public class ProfileService {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
+	private UserService userService;
+	@Autowired
 	private AddressRepository addressRepository;
 	@Autowired
 	private PasswordEncoder bCryptPasswordEncoder;
@@ -74,18 +76,30 @@ public class ProfileService {
 	    		profilUpdate.setLastName(profil.getLastName());
 	    		profilUpdate.setUserState(profil.getUserState());
 	    		profilUpdate.setAvatar(profil.getAvatar());
-	    		Address addressUpdate = new Address();
-	    		addressUpdate.setCity(profil.getAddress().getCity());
-	    		addressUpdate.setCodePostal(profil.getAddress().getCodePostal());
-	    		addressUpdate.setCountry(profil.getAddress().getCountry());
-	    		addressUpdate.setStreet(profil.getAddress().getStreet());
-	    		profilUpdate.setAddress(addressUpdate);
-	    		User userUpdate = new User();
-	    		userUpdate.setEmail(profil.getUser().getEmail());
-	    		if(profil.getUser().getPassword().length() < 16) {
-	    			userUpdate.setPassword(bCryptPasswordEncoder.encode(profil.getUser().getPassword()));
+	    		if(profilUpdate.getAddress() == null) {
+	    			 Address addressUpdate = new Address();
+	    			 addressUpdate.setCity(profil.getAddress().getCity());
+	 	    		 addressUpdate.setCodePostal(profil.getAddress().getCodePostal());
+	 	    		 addressUpdate.setCountry(profil.getAddress().getCountry());
+	 	    		 addressUpdate.setStreet(profil.getAddress().getStreet());
+	 	    		 profilUpdate.setAddress(addressRepository.save(addressUpdate));
+	    		}else
+	    		{
+	    			Address addressUpdate = profilUpdate.getAddress();
+	    			addressUpdate.setCity(profil.getAddress().getCity());
+		    		addressUpdate.setCodePostal(profil.getAddress().getCodePostal());
+		    		addressUpdate.setCountry(profil.getAddress().getCountry());
+		    		addressUpdate.setStreet(profil.getAddress().getStreet());
+		    		profilUpdate.setAddress(addressRepository.save(addressUpdate));
 	    		}
 	    		
+	    		User userUpdate = profilUpdate.getUser();
+	    		userUpdate.setEmail(profil.getUser().getEmail());
+	    		userUpdate.setUsername(profil.getUser().getUsername());
+	    		if(profil.getUser().getPassword() != null) {
+	    			userUpdate.setPassword(profil.getUser().getPassword());
+	    		}
+	    		profilUpdate.setUser(userService.updateUser(profilUpdate.getUser().getId(), profilUpdate.getUser()));
 	    		profilRepository.save(profilUpdate);
 	    		return true;
 	        }

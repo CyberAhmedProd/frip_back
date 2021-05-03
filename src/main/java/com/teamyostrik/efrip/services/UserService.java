@@ -58,19 +58,26 @@ public class UserService {
     	profilRepository.deleteByUser(userData.get());
     	userRepository.deleteById(id);
     }
-    public boolean updateProfil(String id,User user){
+    public User updateUser(String id,User user){
     	Optional<User> userData = userRepository.findById(id);
     	if(userData.isPresent()) {
-    		User userUpdate = new User();
-    		userUpdate.setEmail(user.getEmail());
-    		if(user.getPassword().length() < 16) {
-    			userUpdate.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+    		User userUpdate = userData.get();
+    		if(user.getEmail() != null) {
+    			userUpdate.setEmail(user.getEmail());
+    		}
+    		if(user.getUsername() != null) {
+    			userUpdate.setUsername(user.getUsername());
     		}
     		
-    		userRepository.save(userUpdate);
-    		return true;
+    		if(user.getPassword() != null) {
+    			if(user.getPassword().length() <= 17)
+    				userUpdate.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+    		}
+    		
+    		
+    		return userRepository.save(userUpdate);
         }
-    	return false;
+    	return null;
 
     }
 }

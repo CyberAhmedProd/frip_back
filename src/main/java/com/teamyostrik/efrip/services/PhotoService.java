@@ -1,6 +1,7 @@
 package com.teamyostrik.efrip.services;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
@@ -22,8 +23,20 @@ public class PhotoService {
         photo.setTitle(title);
         photo.setImage(
           new Binary(BsonBinarySubType.BINARY, file.getBytes())); 
-        photo = photoRepo.insert(photo);
+        photo = photoRepo.save(photo);
         return photo.getId();
+    }
+    public String updatePhoto(String id ,String title, MultipartFile file) throws IOException { 
+        Optional<Photo> photo = photoRepo.findById(id);
+        if(photo.isPresent()) {
+        	Photo imgData = photo.get();
+        	imgData.setTitle(title);
+        	imgData.setImage(
+            new Binary(BsonBinarySubType.BINARY, file.getBytes())); 
+            return photoRepo.save(imgData).getId();
+             
+        }
+        return null;
     }
 
     public Photo getPhoto(String id) { 

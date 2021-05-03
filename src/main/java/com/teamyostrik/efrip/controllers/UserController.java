@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.teamyostrik.efrip.models.Profil;
 import com.teamyostrik.efrip.models.User;
 import com.teamyostrik.efrip.services.UserService;
 
@@ -40,5 +43,9 @@ public class UserController {
     	userService.deleteUser(id);
     	return new ResponseEntity<String>("ok",HttpStatus.OK);
     }
+    @PutMapping(path = "{id}")
+	 public void updateUser(@PathVariable ("id") String id, @RequestBody User user){
+    	userService.updateUser(id,user);
+	 }
 
 }

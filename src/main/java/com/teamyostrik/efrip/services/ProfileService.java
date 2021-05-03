@@ -86,7 +86,7 @@ public class ProfileService {
 	    			userUpdate.setPassword(bCryptPasswordEncoder.encode(profil.getUser().getPassword()));
 	    		}
 	    		
-	    		profilRepository.saveAll((Iterable<Profil>) userUpdate);
+	    		profilRepository.save(profilUpdate);
 	    		return true;
 	        }
 

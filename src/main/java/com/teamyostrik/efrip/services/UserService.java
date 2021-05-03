@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.teamyostrik.efrip.models.Address;
 import com.teamyostrik.efrip.models.Profil;
 import com.teamyostrik.efrip.models.Role;
 import com.teamyostrik.efrip.models.Status;
@@ -57,5 +58,19 @@ public class UserService {
     	profilRepository.deleteByUser(userData.get());
     	userRepository.deleteById(id);
     }
-   
+    public boolean updateProfil(String id,User user){
+    	Optional<User> userData = userRepository.findById(id);
+    	if(userData.isPresent()) {
+    		User userUpdate = new User();
+    		userUpdate.setEmail(user.getEmail());
+    		if(user.getPassword().length() < 16) {
+    			userUpdate.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+    		}
+    		
+    		userRepository.save(userUpdate);
+    		return true;
+        }
+    	return false;
+
+    }
 }

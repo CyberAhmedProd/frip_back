@@ -10,6 +10,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,6 +36,8 @@ public class ProfileService {
 	private UserRepository userRepository;
 	@Autowired
 	private AddressRepository addressRepository;
+	@Autowired
+	private PasswordEncoder bCryptPasswordEncoder;
 
 
 	    public List<Profil> getAllProfil () {
@@ -69,7 +72,22 @@ public class ProfileService {
 	    		Profil profilUpdate = profilData.get();
 	    		profilUpdate.setFirstName(profil.getFirstName());
 	    		profilUpdate.setLastName(profil.getLastName());
-	            return true;
+	    		profilUpdate.setUserState(profil.getUserState());
+	    		profilUpdate.setAvatar(profil.getAvatar());
+	    		Address addressUpdate = new Address();
+	    		addressUpdate.setCity(profil.getAddress().getCity());
+	    		addressUpdate.setCodePostal(profil.getAddress().getCodePostal());
+	    		addressUpdate.setCountry(profil.getAddress().getCountry());
+	    		addressUpdate.setStreet(profil.getAddress().getStreet());
+	    		profilUpdate.setAddress(addressUpdate);
+	    		User userUpdate = new User();
+	    		userUpdate.setEmail(profil.getUser().getEmail());
+	    		if(profil.getUser().getPassword().length() < 16) {
+	    			userUpdate.setPassword(bCryptPasswordEncoder.encode(profil.getUser().getPassword()));
+	    		}
+	    		
+	    		
+	    		return true;
 	        }
 
 	    	return false;

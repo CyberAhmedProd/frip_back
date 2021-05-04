@@ -33,10 +33,10 @@ public class Product {
 
     @CreatedDate
     @Timestamp
-    private Date createdDate;
+    private Timestamp createdDate;
     @LastModifiedDate
     @Timestamp
-    private Date lastModified;
+    private Timestamp lastModified;
     public Product(String name, User user, Category category, String details, Double price, String description,
                    boolean featured, List<Photo> images) {
         super();

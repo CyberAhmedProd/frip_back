@@ -32,8 +32,10 @@ public class Product {
     private List<Photo> images;
 
     @CreatedDate
+    @Timestamp
     private Date createdDate;
     @LastModifiedDate
+    @Timestamp
     private Date lastModified;
     public Product(String name, User user, Category category, String details, Double price, String description,
                    boolean featured, List<Photo> images) {

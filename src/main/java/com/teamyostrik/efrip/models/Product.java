@@ -33,10 +33,10 @@ public class Product {
 
 
     @CreatedDate
-    @Timestamp
+    @DateTimeFormat(pattern="dd/MM/yyyy hh:mm:ss")
     private Date createdDate;
     @LastModifiedDate
-    @Timestamp
+    @DateTimeFormat(pattern="dd/MM/yyyy hh:mm:ss")
     private Date lastModified;
 
     public Product(String name, User user, Category category, String details, Double price, String description,

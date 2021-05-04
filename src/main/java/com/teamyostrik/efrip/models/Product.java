@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -29,10 +30,10 @@ public class Product {
     private List<Photo> images;
 
     @CreatedDate
-    private Date createdDate;
+    private Instant createdDate;
 
     public Product(String name, User user, Category category, String details, Double price, String description,
-                   boolean featured, List<Photo> images, Date createdDate) {
+                   boolean featured, List<Photo> images, Instant createdDate) {
         super();
         this.name = name;
         this.user = user;

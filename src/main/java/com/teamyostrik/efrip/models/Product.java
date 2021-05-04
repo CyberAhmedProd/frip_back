@@ -27,7 +27,7 @@ public class Product {
 
     @DBRef
     private List<Photo> images;
-    @DateTimeFormat(style = "M-DD-YY")
+
     @CreatedDate
     private Date createdDate;
 
@@ -124,11 +124,4 @@ public class Product {
         this.images = images;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
 }

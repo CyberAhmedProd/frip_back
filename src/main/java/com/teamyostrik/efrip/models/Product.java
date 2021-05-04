@@ -32,9 +32,9 @@ public class Product {
     private List<Photo> images;
 
     @CreatedDate
-    private Timestamp createdDate;
+    private Date createdDate;
     @LastModifiedDate
-    private Timestamp lastModified;
+    private Date lastModified;
     public Product(String name, User user, Category category, String details, Double price, String description,
                    boolean featured, List<Photo> images) {
         super();
@@ -46,6 +46,8 @@ public class Product {
         this.description = description;
         this.featured = featured;
         this.images = images;
+
+
 
     }
 

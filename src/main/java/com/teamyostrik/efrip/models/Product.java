@@ -31,14 +31,16 @@ public class Product {
     @DBRef
     private List<Photo> images;
 
+
     @CreatedDate
     @Timestamp
     private Date createdDate;
     @LastModifiedDate
     @Timestamp
     private Date lastModified;
+
     public Product(String name, User user, Category category, String details, Double price, String description,
-                   boolean featured, List<Photo> images) {
+                   boolean featured, List<Photo> images, Date createdDate, Date lastModified) {
         super();
         this.name = name;
         this.user = user;
@@ -50,7 +52,8 @@ public class Product {
         this.images = images;
 
 
-
+        this.createdDate = createdDate;
+        this.lastModified = lastModified;
     }
 
     public Product() {
@@ -128,6 +131,22 @@ public class Product {
 
     public void setImages(List<Photo> images) {
         this.images = images;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
     }
 
 }

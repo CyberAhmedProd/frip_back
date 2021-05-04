@@ -27,55 +27,56 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequestMapping("/api")
 public class PhotoController {
-	@Autowired
-	private PhotoService photoService;
-	@PostMapping("/photos/add")
-	public ResponseEntity addPhoto(@RequestParam("title") String title,
-	  @RequestParam("image") MultipartFile image)
-	   {
-		   String id = null;
-		   try {
-			   id = photoService.addPhoto(title, image);
-			   HashMap <Object ,Object > model = new HashMap<Object,Object>();
-			   model.put("success",1);
-			   model.put("message","photo added successfully");
-			   model.put("id",id);
-			   return ok(model);
-		   } catch (IOException e) {
-			   HashMap <Object ,Object > model = new HashMap<Object,Object>();
-			   model.put("success",0);
-			   model.put("message",e.getMessage());
-			   return ok(model);
+    @Autowired
+    private PhotoService photoService;
 
-		   }
+    @PostMapping("/photos/add")
+    public ResponseEntity<HashMap<Object,Object>> addPhoto(@RequestParam("title") String title,
+                                   @RequestParam("image") MultipartFile image) {
+        String id = null;
+        try {
+            id = photoService.addPhoto(title, image);
+            HashMap<Object, Object> model = new HashMap<Object, Object>();
+            model.put("success", 1);
+            model.put("message", "photo added successfully");
+            model.put("id", id);
+            return ok(model);
+        } catch (IOException e) {
+            HashMap<Object, Object> model = new HashMap<Object, Object>();
+            model.put("success", 0);
+            model.put("message", e.getMessage());
+            return ok(model);
 
-	}
-	@PutMapping("/photos/{id}")
-	public ResponseEntity updatePhoto(@PathVariable("id") String id,@RequestParam("title") String title,
-			  @RequestParam("image") MultipartFile image)
-			   {
-				   try {
-					   String res = photoService.updatePhoto(id, title, image);
-					   HashMap <Object ,Object > model = new HashMap<Object,Object>();
-					   model.put("success",1);
-					   model.put("message","photo added successfully");
-					   model.put("id",res);
-					   return ok(model);
-				   } catch (IOException e) {
-					   HashMap <Object ,Object > model = new HashMap<Object,Object>();
-					   model.put("success",0);
-					   model.put("message",e.getMessage());
-					   return ok(model);
+        }
 
-				   }
+    }
 
-			}
-	@GetMapping("/photos/{id}")
-	public ResponseEntity getPhoto(@PathVariable String id, Model model) {
-	    Photo photo = photoService.getPhoto(id);
-	    model.addAttribute("title", photo.getTitle());
-	    model.addAttribute("image", 
-	      Base64.getEncoder().encodeToString(photo.getImage().getData()));
-	    return new ResponseEntity(model,HttpStatus.OK);
-	}
+    @PutMapping("/photos/{id}")
+    public ResponseEntity<HashMap<Object, Object>> updatePhoto(@PathVariable("id") String id, @RequestParam("title") String title,
+                                                               @RequestParam("image") MultipartFile image) {
+        try {
+            String res = photoService.updatePhoto(id, title, image);
+            HashMap<Object, Object> model = new HashMap<Object, Object>();
+            model.put("success", 1);
+            model.put("message", "photo added successfully");
+            model.put("id", res);
+            return ok(model);
+        } catch (IOException e) {
+            HashMap<Object, Object> model = new HashMap<Object, Object>();
+            model.put("success", 0);
+            model.put("message", e.getMessage());
+            return ok(model);
+
+        }
+
+    }
+
+    @GetMapping("/photos/{id}")
+    public ResponseEntity getPhoto(@PathVariable String id, Model model) {
+        Photo photo = photoService.getPhoto(id);
+        model.addAttribute("title", photo.getTitle());
+        model.addAttribute("image",
+                Base64.getEncoder().encodeToString(photo.getImage().getData()));
+        return new ResponseEntity(model, HttpStatus.OK);
+    }
 }

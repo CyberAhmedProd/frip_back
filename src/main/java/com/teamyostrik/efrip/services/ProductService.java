@@ -17,42 +17,43 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
     private final PhotoService photoService;
+
     @Autowired
-    public ProductService (ProductRepository productRepository , PhotoService photoService) {
-        this.productRepository=productRepository;
-        this.photoService=photoService;
+    public ProductService(ProductRepository productRepository, PhotoService photoService) {
+        this.productRepository = productRepository;
+        this.photoService = photoService;
     }
 
-    public List<Product> getAllProducts () {
+    public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
-    public Optional<Product> getProduct (String id){
+    public Optional<Product> getProduct(String id) {
         return productRepository.findById(id);
     }
-    public void addProduct(Product product){
+
+    public void addProduct(Product product) {
         productRepository.save(product);
     }
-    public void deleteProduct(String id){
+
+    public void deleteProduct(String id) {
         productRepository.deleteById(id);
     }
-    public boolean updateProduct(String id,Product product){
-    	Optional<Product> productData = productRepository.findById(id);
-    	if(productData.isPresent()) {
-    		Product productUpdate = productData.get();
-    		productUpdate.setName(product.getName());
-    		productUpdate.setUser(product.getUser());
-    		productUpdate.setCategory(product.getCategory());
-    		productUpdate.setDetails(product.getDetails());
-    		productUpdate.setPrice(product.getPrice());
-    		productUpdate.setDescription(product.getDescription());
-    		productUpdate.setFeatured(product.isFeatured());
-    		productUpdate.setImages(product.getImages());
-            productRepository.save(productUpdate);
-            return true;
-        }
 
-    	return false;
+    public void updateProduct(String id, Product product) {
+        Optional<Product> productData = productRepository.findById(id);
+        if (productData.isPresent()) {
+            Product productUpdate = productData.get();
+            productUpdate.setName(product.getName());
+            productUpdate.setUser(product.getUser());
+            productUpdate.setCategory(product.getCategory());
+            productUpdate.setDetails(product.getDetails());
+            productUpdate.setPrice(product.getPrice());
+            productUpdate.setDescription(product.getDescription());
+            productUpdate.setFeatured(product.isFeatured());
+            productUpdate.setImages(product.getImages());
+            productRepository.save(productUpdate);
+        }
 
     }
 }

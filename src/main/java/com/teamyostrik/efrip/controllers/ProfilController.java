@@ -19,28 +19,38 @@ import com.teamyostrik.efrip.services.ProfileService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping (path = "api")
+@RequestMapping(path = "api")
 public class ProfilController {
-	 @Autowired
-	 private ProfileService profileService;
-	 @GetMapping(path = "/profil")
-	 public List<Profil> getAllProducts(){
-		 return profileService.getAllProfil();
-	 }
-	 @GetMapping("/profil/{id}")
-	 public Profil getProfilByUser(@PathVariable("id") String id){
-	     return profileService.getProfil(id);
-	 }
-	 @PostMapping(path = "/profil")
-	 public void addProduct(@RequestBody Profil profil) {
-		 profileService.addProfil(profil);
-	 }
-	 @DeleteMapping(path = "/profil/{id}")
-	 public void deleteProduct(@PathVariable ("id") String id ){
-		 profileService.deleteProfil(id);;
-	 }
-	 @PutMapping(path = "/profil/{id}")
-	 public void updateProduct(@PathVariable ("id") String id, @RequestBody Profil profil){
-		 profileService.updateProfil(id, profil);
-	 }
+
+    private final ProfileService profileService;
+    @Autowired
+    public ProfilController(ProfileService profileService) {
+        this.profileService = profileService;
+    }
+
+    @GetMapping(path = "/profil")
+    public List<Profil> getAllProducts() {
+        return profileService.getAllProfil();
+    }
+
+    @GetMapping("/profil/{id}")
+    public Profil getProfileByUser(@PathVariable("id") String id) {
+        return profileService.getProfil(id);
+    }
+
+    @PostMapping(path = "/profil")
+    public void addProduct(@RequestBody Profil profil) {
+        profileService.addProfil(profil);
+    }
+
+    @DeleteMapping(path = "/profil/{id}")
+    public void deleteProfile(@PathVariable("id") String id) {
+        profileService.deleteProfil(id);
+        ;
+    }
+
+    @PutMapping(path = "/profil/{id}")
+    public void updateProfile(@PathVariable("id") String id, @RequestBody Profil profil) {
+        profileService.updateProfil(id, profil);
+    }
 }

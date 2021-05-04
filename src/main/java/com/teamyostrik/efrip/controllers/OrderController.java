@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path ="api/order")
+@RequestMapping(path = "api/order")
 public class OrderController {
     private final OrderService orderService;
 
@@ -21,26 +21,27 @@ public class OrderController {
     }
 
     @GetMapping
-    public List<Order> getAllOrders(){
+    public List<Order> getAllOrders() {
         return orderService.getAllOrders();
     }
+
     @GetMapping(path = "{orderid}")
-    public Optional<Order> getOrder(@PathVariable("orderid") String id){
+    public Optional<Order> getOrder(@PathVariable("orderid") String id) {
         return orderService.getOrder(id);
     }
 
     @PostMapping()
-    public void addOrder (Order order) {
+    public void addOrder(Order order) {
         orderService.addOrder(order);
     }
-    
-    @DeleteMapping(path ="{orderid}")
-    public void deleteOrder(@PathVariable ("orderid") String id ) {
+
+    @DeleteMapping(path = "{orderid}")
+    public void deleteOrder(@PathVariable("orderid") String id) {
         orderService.deleteOrder(id);
     }
-    
-    @PutMapping (path = "{orderid}") 
-    public void updateOrder(@PathVariable ("orderid") String id , Order order) {
-        orderService.updateOrder(id,order);
+
+    @PutMapping(path = "{orderid}")
+    public void updateOrder(@PathVariable("orderid") String id, Order order) {
+        orderService.updateOrder(id, order);
     }
 }

@@ -1,7 +1,9 @@
 package com.teamyostrik.efrip.models;
 
+import jdk.jfr.Timestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,10 +32,11 @@ public class Product {
     private List<Photo> images;
 
     @CreatedDate
-    private Instant createdDate;
-
+    private Timestamp createdDate;
+    @LastModifiedDate
+    private Timestamp lastModified;
     public Product(String name, User user, Category category, String details, Double price, String description,
-                   boolean featured, List<Photo> images, Instant createdDate) {
+                   boolean featured, List<Photo> images) {
         super();
         this.name = name;
         this.user = user;
@@ -44,8 +47,6 @@ public class Product {
         this.featured = featured;
         this.images = images;
 
-
-        this.createdDate = createdDate;
     }
 
     public Product() {

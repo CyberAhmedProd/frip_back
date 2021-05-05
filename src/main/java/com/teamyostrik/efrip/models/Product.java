@@ -1,6 +1,7 @@
 package com.teamyostrik.efrip.models;
 
 import jdk.jfr.Timestamp;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -24,6 +25,7 @@ public class Product {
     private Category category;
     private String details;
     private Double price;
+    private int quantity;
     private String description;
     private boolean featured;
 
@@ -39,7 +41,7 @@ public class Product {
 
     private Date lastModified;
 
-    public Product(String name, User user, Category category, String details, Double price, String description,
+    public Product(String name, User user, Category category, String details, Double price, int quantity, String description,
                    boolean featured, List<Photo> images, Date createdDate, Date lastModified) {
         super();
         this.name = name;
@@ -47,6 +49,7 @@ public class Product {
         this.category = category;
         this.details = details;
         this.price = price;
+        this.quantity = quantity;
         this.description = description;
         this.featured = featured;
         this.images = images;
@@ -149,4 +152,11 @@ public class Product {
         this.lastModified = lastModified;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

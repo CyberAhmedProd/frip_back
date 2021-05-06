@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.teamyostrik.efrip.models.Address;
+import com.teamyostrik.efrip.models.Photo;
 import com.teamyostrik.efrip.models.Profil;
 import com.teamyostrik.efrip.models.Role;
 import com.teamyostrik.efrip.models.Status;
@@ -50,6 +51,10 @@ public class UserService {
     	Profil profilData = new Profil();
     	profilData.setFirstName("foulen");
     	profilData.setLastName("BenFoulen");
+    	Photo img = new Photo();
+    	profilData.setAvatar(img);	
+    	Address address = new Address();
+    	profilData.setAddress(address);
     	profilData.setUser(userRepository.save(user));
     	profilRepository.save(profilData);
     }

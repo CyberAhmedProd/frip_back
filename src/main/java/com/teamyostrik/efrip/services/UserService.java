@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import org.bson.BsonBinarySubType;
+import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import com.teamyostrik.efrip.models.Profil;
 import com.teamyostrik.efrip.models.Role;
 import com.teamyostrik.efrip.models.Status;
 import com.teamyostrik.efrip.models.User;
+import com.teamyostrik.efrip.repositories.PhotoRepository;
 import com.teamyostrik.efrip.repositories.ProfilRepository;
 import com.teamyostrik.efrip.repositories.RoleRepository;
 import com.teamyostrik.efrip.repositories.UserRepository;
@@ -29,6 +32,8 @@ public class UserService {
 	private PasswordEncoder bCryptPasswordEncoder;
 	@Autowired
 	private ProfilRepository profilRepository;
+	@Autowired
+	private PhotoRepository photoRepository;
 
     public List<User> getAllUsers () {
         return userRepository.findAll();
@@ -52,7 +57,10 @@ public class UserService {
     	profilData.setFirstName("foulen");
     	profilData.setLastName("BenFoulen");
     	Photo img = new Photo();
-    	profilData.setAvatar(img);	
+    	img.setTitle("imae/png");
+    	String file  = "aa";
+    	img.setImage(new Binary(BsonBinarySubType.BINARY, file.getBytes())); 
+    	profilData.setAvatar(photoRepository.save(img));	
     	Address address = new Address();
     	profilData.setAddress(address);
     	profilData.setUser(userRepository.save(user));

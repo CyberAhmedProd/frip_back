@@ -76,31 +76,7 @@ public class ProfileService {
 	    			profilUpdate.setFirstName(profil.getFirstName());
 	    		if(profil.getLastName() != null)
 	    			profilUpdate.setLastName(profil.getLastName());
-	    		if(profil.getUserState() != null)
-	    			profilUpdate.setUserState(profil.getUserState());
-	    		Optional<Address> addressUpdate = addressRepository.findById(profilUpdate.getAddress().getId());
-	    		if(profil.getAddress().getCity()!=null)
-	    			addressUpdate.get().setCity(profil.getAddress().getCity());
-	    		if(profil.getAddress().getCodePostal()!=null)
-		    		addressUpdate.get().setCodePostal(profil.getAddress().getCodePostal());
-	    		if(profil.getAddress().getCountry()!=null)
-		    		addressUpdate.get().setCountry(profil.getAddress().getCountry());
-	    		if(profil.getAddress().getStreet()!=null)
-		    		addressUpdate.get().setStreet(profil.getAddress().getStreet());
-		    	profilUpdate.setAddress(addressRepository.save(addressUpdate.get()));
 	    		
-	    		
-	    		User userUpdate = profilUpdate.getUser();
-	    		if(profil.getUser().getUsername() != null)
-	    			userUpdate.setUsername(profil.getUser().getUsername());
-	    		if(profil.getUser().getEmail() != null)
-	    			userUpdate.setEmail(profil.getUser().getEmail());
-	    		if(profil.getUser().getUsername() != null)
-	    			userUpdate.setUsername(profil.getUser().getUsername());
-	    		if(profil.getUser().getPassword() != null) {
-	    			userUpdate.setPassword(profil.getUser().getPassword());
-	    		}
-	    		profilUpdate.setUser(userService.updateUser(profilUpdate.getUser().getId(), profilUpdate.getUser()));
 	    		profilRepository.save(profilUpdate);
 	    		return true;
 	        }

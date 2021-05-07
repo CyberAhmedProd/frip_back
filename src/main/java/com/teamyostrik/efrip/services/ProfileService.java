@@ -78,16 +78,16 @@ public class ProfileService {
 	    			profilUpdate.setLastName(profil.getLastName());
 	    		if(profil.getUserState() != null)
 	    			profilUpdate.setUserState(profil.getUserState());
-	    		Address addressUpdate = profilUpdate.getAddress();
+	    		Optional<Address> addressUpdate = addressRepository.findById(profilUpdate.getAddress().getId());
 	    		if(profil.getAddress().getCity()!=null)
-	    			addressUpdate.setCity(profil.getAddress().getCity());
+	    			addressUpdate.get().setCity(profil.getAddress().getCity());
 	    		if(profil.getAddress().getCodePostal()!=null)
-		    		addressUpdate.setCodePostal(profil.getAddress().getCodePostal());
+		    		addressUpdate.get().setCodePostal(profil.getAddress().getCodePostal());
 	    		if(profil.getAddress().getCountry()!=null)
-		    		addressUpdate.setCountry(profil.getAddress().getCountry());
+		    		addressUpdate.get().setCountry(profil.getAddress().getCountry());
 	    		if(profil.getAddress().getStreet()!=null)
-		    		addressUpdate.setStreet(profil.getAddress().getStreet());
-		    	profilUpdate.setAddress(addressRepository.save(addressUpdate));
+		    		addressUpdate.get().setStreet(profil.getAddress().getStreet());
+		    	profilUpdate.setAddress(addressRepository.save(addressUpdate.get()));
 	    		
 	    		
 	    		User userUpdate = profilUpdate.getUser();

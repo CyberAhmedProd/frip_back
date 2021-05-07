@@ -17,6 +17,7 @@ import com.teamyostrik.efrip.models.Profil;
 import com.teamyostrik.efrip.models.Role;
 import com.teamyostrik.efrip.models.Status;
 import com.teamyostrik.efrip.models.User;
+import com.teamyostrik.efrip.repositories.AddressRepository;
 import com.teamyostrik.efrip.repositories.PhotoRepository;
 import com.teamyostrik.efrip.repositories.ProfilRepository;
 import com.teamyostrik.efrip.repositories.RoleRepository;
@@ -34,6 +35,8 @@ public class UserService {
 	private ProfilRepository profilRepository;
 	@Autowired
 	private PhotoRepository photoRepository;
+	@Autowired
+	private AddressRepository addressRepository;
 
     public List<User> getAllUsers () {
         return userRepository.findAll();
@@ -62,7 +65,11 @@ public class UserService {
     	img.setImage(new Binary(BsonBinarySubType.BINARY, file.getBytes())); 
     	profilData.setAvatar(photoRepository.save(img));	
     	Address address = new Address();
-    	profilData.setAddress(address);
+    	address.setCity(" ");
+    	address.setCodePostal((short) 0000);
+    	address.setCountry(" ");
+    	address.setStreet(" ");
+    	profilData.setAddress(addressRepository.save(address));
     	profilData.setUser(userRepository.save(user));
     	profilRepository.save(profilData);
     }

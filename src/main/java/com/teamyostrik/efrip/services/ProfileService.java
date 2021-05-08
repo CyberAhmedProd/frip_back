@@ -76,7 +76,17 @@ public class ProfileService {
 	    			profilUpdate.setFirstName(profil.getFirstName());
 	    		if(profil.getLastName() != null)
 	    			profilUpdate.setLastName(profil.getLastName());
-	    		
+	    		if(profil.getUser().getId() != null) {
+	    			Optional<User> userData = userRepository.findById(profil.getUser().getId());
+	    			if(userData.isPresent()) {
+	    				User userUpdate = userData.get();
+	    				if(profil.getUser().getUsername() != null)
+	    					userUpdate.setUsername(profil.getUser().getUsername());
+	    				if(profil.getUser().getEmail() != null)
+	    					userUpdate.setEmail(profil.getUser().getEmail());
+	    				profilUpdate.setUser(userUpdate);
+	    			}
+	    		}
 	    		profilRepository.save(profilUpdate);
 	    		return true;
 	        }

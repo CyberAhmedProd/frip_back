@@ -84,7 +84,7 @@ public class ProfileService {
 	    					userUpdate.setUsername(profil.getUser().getUsername());
 	    				if(profil.getUser().getEmail() != null)
 	    					userUpdate.setEmail(profil.getUser().getEmail());
-	    				profilUpdate.setUser(userUpdate);
+	    				profilUpdate.setUser(userRepository.save(userUpdate));
 	    			}
 	    		}
 	    		profilRepository.save(profilUpdate);

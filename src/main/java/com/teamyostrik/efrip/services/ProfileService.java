@@ -72,34 +72,36 @@ public class ProfileService {
 	    	Optional<Profil> profilData = profilRepository.findById(id);
 	    	if(profilData.isPresent()) {
 	    		Profil profilUpdate = profilData.get();
-	    		profilUpdate.setFirstName(profil.getFirstName());
-	    		profilUpdate.setLastName(profil.getLastName());
-	    		profilUpdate.setUserState(profil.getUserState());
-	    		profilUpdate.setAvatar(profil.getAvatar());
-	    		if(profilUpdate.getAddress() == null) {
-	    			 Address addressUpdate = new Address();
-	    			 addressUpdate.setCity(profil.getAddress().getCity());
-	 	    		 addressUpdate.setCodePostal(profil.getAddress().getCodePostal());
-	 	    		 addressUpdate.setCountry(profil.getAddress().getCountry());
-	 	    		 addressUpdate.setStreet(profil.getAddress().getStreet());
-	 	    		 profilUpdate.setAddress(addressRepository.save(addressUpdate));
-	    		}else
-	    		{
-	    			Address addressUpdate = profilUpdate.getAddress();
-	    			addressUpdate.setCity(profil.getAddress().getCity());
-		    		addressUpdate.setCodePostal(profil.getAddress().getCodePostal());
-		    		addressUpdate.setCountry(profil.getAddress().getCountry());
-		    		addressUpdate.setStreet(profil.getAddress().getStreet());
-		    		profilUpdate.setAddress(addressRepository.save(addressUpdate));
+	    		if(profil.getFirstName() != null)
+	    			profilUpdate.setFirstName(profil.getFirstName());
+	    		if(profil.getLastName() != null)
+	    			profilUpdate.setLastName(profil.getLastName());
+	    		if(profil.getUser().getId() != null) {
+	    			Optional<User> userData = userRepository.findById(profil.getUser().getId());
+	    			if(userData.isPresent()) {
+	    				User userUpdate = userData.get();
+	    				if(profil.getUser().getUsername() != null)
+	    					userUpdate.setUsername(profil.getUser().getUsername());
+	    				if(profil.getUser().getEmail() != null)
+	    					userUpdate.setEmail(profil.getUser().getEmail());
+	    				profilUpdate.setUser(userRepository.save(userUpdate));
+	    			}
 	    		}
-	    		
-	    		User userUpdate = profilUpdate.getUser();
-	    		userUpdate.setEmail(profil.getUser().getEmail());
-	    		userUpdate.setUsername(profil.getUser().getUsername());
-	    		if(profil.getUser().getPassword() != null) {
-	    			userUpdate.setPassword(profil.getUser().getPassword());
+	    		if(profil.getAddress().getId() != null) {
+	    			Optional<Address> addressData = addressRepository.findById(profil.getAddress().getId());
+	    			if(addressData.isPresent()) {
+	    				Address addressUpdate = addressData.get();
+	    				if(profil.getAddress().getCity()!= null)
+	    					addressUpdate.setCity(profil.getAddress().getCity());
+	    				if(profil.getAddress().getCodePostal() != null)
+	    					addressUpdate.setCodePostal(profil.getAddress().getCodePostal());
+	    				if(profil.getAddress().getCountry()!= null)
+	    					addressUpdate.setCountry(profil.getAddress().getCountry());
+	    				if(profil.getAddress().getStreet() != null)
+	    					addressUpdate.setStreet(profil.getAddress().getStreet());
+	    				profilUpdate.setAddress(addressRepository.save(addressUpdate));
+	    			}
 	    		}
-	    		profilUpdate.setUser(userService.updateUser(profilUpdate.getUser().getId(), profilUpdate.getUser()));
 	    		profilRepository.save(profilUpdate);
 	    		return true;
 	        }

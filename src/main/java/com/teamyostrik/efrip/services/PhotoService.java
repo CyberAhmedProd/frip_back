@@ -15,8 +15,12 @@ import com.teamyostrik.efrip.repositories.PhotoRepository;
 @Service
 public class PhotoService {
 
+
+    private final PhotoRepository photoRepo;
     @Autowired
-    private PhotoRepository photoRepo;
+    public PhotoService(PhotoRepository photoRepo) {
+        this.photoRepo = photoRepo;
+    }
 
     public String addPhoto(String title, MultipartFile file) throws IOException { 
         Photo photo = new Photo();
@@ -41,5 +45,8 @@ public class PhotoService {
 
     public Photo getPhoto(String id) { 
         return photoRepo.findById(id).get(); 
+    }
+    public void deletePhoto(String id) {
+        photoRepo.deleteById(id);
     }
 }

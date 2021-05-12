@@ -23,6 +23,7 @@ import com.teamyostrik.efrip.services.ProfileService;
 public class ProfilController {
 
     private final ProfileService profileService;
+
     @Autowired
     public ProfilController(ProfileService profileService) {
         this.profileService = profileService;
@@ -46,7 +47,7 @@ public class ProfilController {
     @DeleteMapping(path = "/profil/{id}")
     public void deleteProfile(@PathVariable("id") String id) {
         profileService.deleteProfil(id);
-        ;
+
     }
 
     @PutMapping(path = "/profil/{id}")

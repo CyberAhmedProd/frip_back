@@ -26,7 +26,7 @@ public class JwtTokenProvider {
     private final long validityInMilliseconds = 3600000; // 1h
     
     private final CustomUserDetailsService userDetailsService;
-
+    @Autowired
     public JwtTokenProvider(CustomUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }

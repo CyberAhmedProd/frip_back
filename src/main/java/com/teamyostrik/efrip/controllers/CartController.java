@@ -7,10 +7,7 @@ import com.teamyostrik.efrip.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,8 +24,8 @@ public class CartController {
         this.userService = userService;
     }
 
-    @PostMapping(value ="/{user_id}")
-    public List<Cart> getCart(@PathVariable("user_id") String user_id){
+    @PostMapping(value ="")
+    public List<Cart> getCart(@RequestParam String user_id){
         Optional<User> user = userService.getUser(user_id);
         return user.map(cartService::getCart).orElse(null);
 

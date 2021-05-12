@@ -1,7 +1,9 @@
 package com.teamyostrik.efrip.controllers;
 
 import com.teamyostrik.efrip.models.Cart;
+import com.teamyostrik.efrip.models.User;
 import com.teamyostrik.efrip.services.CartService;
+import com.teamyostrik.efrip.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,19 +20,23 @@ import java.util.Optional;
 @RequestMapping("/api/cart" )
 public class CartController {
     private final CartService cartService;
+    private final UserService userService;
     @Autowired
-    public CartController(CartService cartService) {
+    public CartController(CartService cartService, UserService userService) {
         this.cartService = cartService;
+        this.userService = userService;
     }
 
     @PostMapping(value ="/{user_id}")
     public List<Cart> getCart(@PathVariable("user_id") String user_id){
-        return cartService.getCart(user_id);
+        Optional<User> user = userService.getUser(user_id);
+        return user.map(cartService::getCart).orElse(null);
+
     }
 
     @PostMapping(value="/add")
     public ResponseEntity<HashMap<Object, Object>> addToCart(@RequestBody Cart cartItem){
-        Optional<Cart> toCheck=cartService.findCartByProductAndUser_Id(cartItem.getProduct(), cartItem.getUser_id());
+        Optional<Cart> toCheck=cartService.findCartByProductAndUser_Id(cartItem.getProduct(), cartItem.getUser());
         HashMap<Object, Object> model=new HashMap<>();
         if(toCheck.isPresent()){
             model.put("success",0);

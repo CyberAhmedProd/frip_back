@@ -2,6 +2,7 @@ package com.teamyostrik.efrip.services;
 
 import com.teamyostrik.efrip.models.Cart;
 import com.teamyostrik.efrip.models.Product;
+import com.teamyostrik.efrip.models.User;
 import com.teamyostrik.efrip.repositories.CartRepository;
 import com.teamyostrik.efrip.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class CartService {
         this.productRepository = productRepository;
     }
 
-    public List<Cart> getCart(String user_id){
-        return cartRepository.findAllByUser_id(user_id);
+    public List<Cart> getCart(User user){
+        return cartRepository.findAllByUser(user);
     }
 
     public void addToCart(Cart cartItem){
@@ -39,7 +40,7 @@ public class CartService {
         });
 
     }
-    public Optional<Cart> findCartByProductAndUser_Id(Product product,String user_id){
-        return cartRepository.findByProductAndUser_id(product,user_id);
+    public Optional<Cart> findCartByProductAndUser_Id(Product product, User user){
+        return cartRepository.findByProductAndUser_id(product,user);
     }
 }

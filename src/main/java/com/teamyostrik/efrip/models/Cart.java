@@ -12,17 +12,17 @@ public class Cart {
     private Product product;
 
 
-
-    private String user_id;
+    @DBRef
+    private User user;
     private int quantity=1;
 
     public Cart() {
     }
 
-    public Cart(String id, Product product, String user_id, int quantity) {
+    public Cart(String id, Product product, User user, int quantity) {
         this.id = id;
         this.product = product;
-        this.user_id = user_id;
+        this.user = user;
         this.quantity = quantity;
     }
 
@@ -49,11 +49,12 @@ public class Cart {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    public String getUser_id() {
-        return user_id;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

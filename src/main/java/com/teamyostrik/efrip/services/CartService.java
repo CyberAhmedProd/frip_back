@@ -26,21 +26,34 @@ public class CartService {
     }
 
     public void addToCart(Cart cartItem){
-        this.cartRepository.save(cartItem);
+
+        String id =this.cartRepository.save(cartItem).getId();
+        updateQuantity("",id,cartItem.quantity);
     }
     public void removeFromCart(String id){
         this.cartRepository.deleteById(id);
     }
 
-    public void updateQuantity(String id, int quantity) {
+    public void updateQuantity(String type,String id, int quantity) {
         Optional<Cart> itemToUpdate=cartRepository.findById(id);
         itemToUpdate.ifPresent(cart -> {
             Optional<Product> productToUpdate= productRepository.findById(cart.getProduct().getId());
-           cart.setQuantity(quantity);
+            productToUpdate.ifPresent(product -> {
+                if(type.equals("increment")){
+                    product.setQuantity(product.getQuantity()-quantity);
+
+                }else {
+                    product.setQuantity(product.getQuantity()+quantity);
+                }
+                productRepository.save(product);
+                cart.setQuantity(quantity);
+                cartRepository.save(cart);
+            });
+
         });
 
     }
     public Optional<Cart> findCartByProductAndUser_Id(Product product, User user){
-        return cartRepository.findByProductAndUser_id(product,user);
+        return cartRepository.findByProductAndUser(product,user);
     }
 }

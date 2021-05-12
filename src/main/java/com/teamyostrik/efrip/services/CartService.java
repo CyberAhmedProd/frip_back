@@ -40,10 +40,10 @@ public class CartService {
             Optional<Product> productToUpdate= productRepository.findById(cart.getProduct().getId());
             productToUpdate.ifPresent(product -> {
                 if(type.equals("increment")){
-                    product.setQuantity(product.getQuantity()-quantity);
+                    product.setQuantity(product.getQuantity()+quantity);
 
                 }else {
-                    product.setQuantity(product.getQuantity()+quantity);
+                    product.setQuantity(product.getQuantity()-quantity);
                 }
                 productRepository.save(product);
                 cart.setQuantity(quantity);

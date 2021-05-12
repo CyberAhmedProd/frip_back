@@ -12,5 +12,5 @@ import java.util.Optional;
 @Repository
 public interface CartRepository extends MongoRepository<Cart, String> {
     List<Cart> findAllByUser(User user);
-    Optional<Cart> findByProductAndUser_id(Product product, User user);
+    Optional<Cart> findByProductAndUser(Product product, User user);
 }

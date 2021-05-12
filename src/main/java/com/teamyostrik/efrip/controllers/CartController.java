@@ -24,14 +24,14 @@ public class CartController {
         this.userService = userService;
     }
 
-    @PostMapping(value ="")
+    @PostMapping(path ="")
     public List<Cart> getCart(@RequestBody String user_id){
         Optional<User> user = userService.getUser(user_id);
         return user.map(cartService::getCart).orElse(null);
 
     }
 
-    @PostMapping(value="/add")
+    @PostMapping(path="/add")
     public ResponseEntity<HashMap<Object, Object>> addToCart(@RequestBody Cart cartItem){
         Optional<Cart> toCheck=cartService.findCartByProductAndUser_Id(cartItem.getProduct(), cartItem.getUser());
         HashMap<Object, Object> model=new HashMap<>();
@@ -46,7 +46,7 @@ public class CartController {
         return ResponseEntity.ok(model);
 
     }
-    @PutMapping(value="/update/quantity/{id}")
+    @PutMapping(path="/update/quantity/{id}")
     public void updateQuantity(@PathVariable("id") String id,@RequestBody int quantity){
         cartService.updateQuantity(id,quantity);
     }

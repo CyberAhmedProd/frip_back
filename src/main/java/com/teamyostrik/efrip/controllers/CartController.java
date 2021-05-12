@@ -25,7 +25,7 @@ public class CartController {
         this.userService = userService;
     }
 
-    @PostMapping(path = "")
+    @PostMapping
     public List<Cart> getCart(@RequestBody String user_id) {
         Optional<User> user = userService.getUser(user_id);
         return user.map(cartService::getCart).orElse(null);

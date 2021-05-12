@@ -60,9 +60,9 @@ public class UserService {
     	profilData.setFirstName("foulen");
     	profilData.setLastName("BenFoulen");
     	Photo img = new Photo();
-    	img.setTitle("imae/png");
-    	String file  = "aa";
-    	img.setImage(new Binary(BsonBinarySubType.BINARY, file.getBytes())); 
+    	img.setTitle("image/png");
+    	//String file  = "aa";
+    	//img.setImage(new Binary(BsonBinarySubType.BINARY, file.getBytes())); 
     	profilData.setAvatar(photoRepository.save(img));	
     	Address address = new Address();
     	address.setCity(" ");

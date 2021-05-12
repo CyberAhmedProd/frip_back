@@ -28,8 +28,8 @@ public class CartService {
 
     public void addToCart(Cart cartItem) {
 
-        String id = this.cartRepository.save(cartItem).getId();
-        updateQuantity(id, cartItem.getQuantity());
+        this.cartRepository.save(cartItem);
+
     }
 
     public void removeFromCart(String id) {

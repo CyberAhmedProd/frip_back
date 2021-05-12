@@ -46,4 +46,8 @@ public class CartController {
         return ResponseEntity.ok(model);
 
     }
+    @PutMapping(value="/update/quantity/{id}")
+    public void updateQuantity(@PathVariable("id") String id,@RequestBody int quantity){
+        cartService.updateQuantity(id,quantity);
+    }
 }

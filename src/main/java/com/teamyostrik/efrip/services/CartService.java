@@ -27,10 +27,11 @@ public class CartService {
 
     public void addToCart(Cart cartItem){
 
-        String id =this.cartRepository.save(cartItem).getId();
-        updateQuantity("",id,cartItem.getQuantity());
+        this.cartRepository.save(cartItem);
+//        updateQuantity("",id,cartItem.getQuantity());
     }
     public void removeFromCart(String id){
+       // updateQuantity("add",id,)
         this.cartRepository.deleteById(id);
     }
 

@@ -25,8 +25,8 @@ public class CartController {
         this.userService = userService;
     }
 
-    @PostMapping
-    public List<Cart> getCart(@RequestBody String user_id) {
+    @PostMapping(path ="{user_id}")
+    public List<Cart> getCart(@PathVariable("user_id") String user_id) {
         Optional<User> user = userService.getUser(user_id);
         return user.map(cartService::getCart).orElse(null);
 
@@ -49,7 +49,7 @@ public class CartController {
     }
 
     @PutMapping(path = "/update/quantity/{id}")
-    public void updateQuantity(@PathVariable("id") String id, @RequestBody int quantity) {
-        cartService.updateQuantity(id, quantity);
+    public void updateQuantity(@PathVariable("id") String id, @RequestBody Cart cart) {
+        cartService.updateQuantity(id, cart.getQuantity());
     }
 }

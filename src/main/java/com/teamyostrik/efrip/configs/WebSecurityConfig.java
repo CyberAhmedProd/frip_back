@@ -24,8 +24,12 @@ import javax.servlet.http.HttpServletResponse;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+
+	private final JwtTokenProvider jwtTokenProvider;
 	@Autowired
-	JwtTokenProvider jwtTokenProvider;
+	public WebSecurityConfig(JwtTokenProvider jwtTokenProvider) {
+		this.jwtTokenProvider = jwtTokenProvider;
+	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {

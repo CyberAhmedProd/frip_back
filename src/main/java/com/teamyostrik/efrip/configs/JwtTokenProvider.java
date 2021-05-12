@@ -25,13 +25,8 @@ public class JwtTokenProvider {
     @Value("${security.jwt.token.expire-length:3600000}")
     private final long validityInMilliseconds = 3600000; // 1h
     
-
-    private final CustomUserDetailsService userDetailsService;
-
     @Autowired
-    public JwtTokenProvider(CustomUserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+    private CustomUserDetailsService userDetailsService;
 
     @PostConstruct
     protected void init() {

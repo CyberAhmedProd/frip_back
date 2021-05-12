@@ -28,7 +28,7 @@ public class CartService {
     public void addToCart(Cart cartItem){
 
         String id =this.cartRepository.save(cartItem).getId();
-        updateQuantity("",id,cartItem.quantity);
+        updateQuantity("",id,cartItem.getQuantity());
     }
     public void removeFromCart(String id){
         this.cartRepository.deleteById(id);

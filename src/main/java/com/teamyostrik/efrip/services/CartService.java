@@ -14,47 +14,56 @@ import java.util.Optional;
 @Service
 public class CartService {
     private final CartRepository cartRepository;
-    private final ProductRepository productRepository;
+
+
     @Autowired
-    public CartService(CartRepository cartRepository, ProductRepository productRepository) {
+    public CartService(CartRepository cartRepository) {
         this.cartRepository = cartRepository;
-        this.productRepository = productRepository;
+
     }
 
-    public List<Cart> getCart(User user){
+    public List<Cart> getCart(User user) {
         return cartRepository.findAllByUser(user);
     }
 
-    public void addToCart(Cart cartItem){
+    public void addToCart(Cart cartItem) {
 
-        this.cartRepository.save(cartItem);
-//        updateQuantity("",id,cartItem.getQuantity());
+        String id = this.cartRepository.save(cartItem).getId();
+        updateQuantity(id, cartItem.getQuantity());
     }
-    public void removeFromCart(String id){
-       // updateQuantity("add",id,)
+
+    public void removeFromCart(String id) {
         this.cartRepository.deleteById(id);
     }
 
-    public void updateQuantity(String type,String id, int quantity) {
-        Optional<Cart> itemToUpdate=cartRepository.findById(id);
+    //    public void updateQuantity(String type,String id, int quantity) {
+//        Optional<Cart> itemToUpdate=cartRepository.findById(id);
+//        itemToUpdate.ifPresent(cart -> {
+//            Optional<Product> productToUpdate= productRepository.findById(cart.getProduct().getId());
+//            productToUpdate.ifPresent(product -> {
+//                if(type.equals("increment")){
+//                    product.setQuantity(product.getQuantity()+quantity);
+//
+//                }else {
+//                    product.setQuantity(product.getQuantity()-quantity);
+//                }
+//                productRepository.save(product);
+//                cart.setQuantity(quantity);
+//                cartRepository.save(cart);
+//            });
+//
+//        });
+//
+//    }
+    public void updateQuantity(String id, int quantity) {
+        Optional<Cart> itemToUpdate = cartRepository.findById(id);
         itemToUpdate.ifPresent(cart -> {
-            Optional<Product> productToUpdate= productRepository.findById(cart.getProduct().getId());
-            productToUpdate.ifPresent(product -> {
-                if(type.equals("increment")){
-                    product.setQuantity(product.getQuantity()+quantity);
-
-                }else {
-                    product.setQuantity(product.getQuantity()-quantity);
-                }
-                productRepository.save(product);
-                cart.setQuantity(quantity);
-                cartRepository.save(cart);
-            });
-
+            cart.setQuantity(quantity);
+            cartRepository.save(cart);
         });
-
     }
-    public Optional<Cart> findCartByProductAndUser_Id(Product product, User user){
-        return cartRepository.findByProductAndUser(product,user);
+
+    public Optional<Cart> findCartByProductAndUser_Id(Product product, User user) {
+        return cartRepository.findByProductAndUser(product, user);
     }
 }

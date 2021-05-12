@@ -52,4 +52,8 @@ public class CartController {
     public void updateQuantity(@PathVariable("id") String id, @RequestBody Cart cart) {
         cartService.updateQuantity(id, cart.getQuantity());
     }
+    @DeleteMapping(path ="/delete/{id}")
+    public void deleteFromCart(@PathVariable("id") String id ){
+        cartService.removeFromCart(id);
+    }
 }

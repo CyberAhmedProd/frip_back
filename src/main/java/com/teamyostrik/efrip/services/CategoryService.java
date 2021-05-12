@@ -1,12 +1,10 @@
 package com.teamyostrik.efrip.services;
 
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.teamyostrik.efrip.models.Category;
 import com.teamyostrik.efrip.repositories.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;

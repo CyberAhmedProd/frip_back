@@ -1,30 +1,19 @@
 package com.teamyostrik.efrip.services;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-
-import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.teamyostrik.efrip.models.Address;
 import com.teamyostrik.efrip.models.Photo;
-import com.teamyostrik.efrip.models.Product;
 import com.teamyostrik.efrip.models.Profil;
-import com.teamyostrik.efrip.models.Role;
 import com.teamyostrik.efrip.models.User;
 import com.teamyostrik.efrip.repositories.AddressRepository;
 import com.teamyostrik.efrip.repositories.PhotoRepository;
-import com.teamyostrik.efrip.repositories.ProductRepository;
 import com.teamyostrik.efrip.repositories.ProfilRepository;
 import com.teamyostrik.efrip.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProfileService {

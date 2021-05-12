@@ -1,7 +1,6 @@
 package com.teamyostrik.efrip.configs;
 
-import javax.servlet.http.HttpServletResponse;
-
+import com.teamyostrik.efrip.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-import com.teamyostrik.efrip.services.CustomUserDetailsService;
+import javax.servlet.http.HttpServletResponse;
 
 
 

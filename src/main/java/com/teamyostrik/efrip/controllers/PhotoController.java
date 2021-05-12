@@ -1,9 +1,7 @@
 package com.teamyostrik.efrip.controllers;
 
-import java.io.IOException;
-import java.util.Base64;
-import java.util.HashMap;
-
+import com.teamyostrik.efrip.models.Photo;
+import com.teamyostrik.efrip.services.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.teamyostrik.efrip.models.Photo;
-import com.teamyostrik.efrip.services.PhotoService;
+import java.io.IOException;
+import java.util.Base64;
+import java.util.HashMap;
 
 import static org.springframework.http.ResponseEntity.ok;
 

@@ -1,16 +1,15 @@
 package com.teamyostrik.efrip.services;
 
-import java.io.IOException;
-import java.util.Optional;
-
+import com.teamyostrik.efrip.models.Photo;
+import com.teamyostrik.efrip.repositories.PhotoRepository;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.teamyostrik.efrip.models.Photo;
-import com.teamyostrik.efrip.repositories.PhotoRepository;
+import java.io.IOException;
+import java.util.Optional;
 
 @Service
 public class PhotoService {

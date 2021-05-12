@@ -1,15 +1,11 @@
 package com.teamyostrik.efrip.services;
 
+import com.teamyostrik.efrip.models.Product;
+import com.teamyostrik.efrip.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.teamyostrik.efrip.models.Product;
-import com.teamyostrik.efrip.repositories.ProductRepository;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 import java.util.List;
-
 import java.util.Optional;
 
 

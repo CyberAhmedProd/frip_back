@@ -1,12 +1,8 @@
 package com.teamyostrik.efrip.configs;
 
-import java.util.Base64;
-import java.util.Date;
-import java.util.Set;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-
+import com.teamyostrik.efrip.models.Role;
+import com.teamyostrik.efrip.services.CustomUserDetailsService;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,14 +10,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.teamyostrik.efrip.models.Role;
-import com.teamyostrik.efrip.services.CustomUserDetailsService;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Base64;
+import java.util.Date;
+import java.util.Set;
 
 @Component
 public class JwtTokenProvider {

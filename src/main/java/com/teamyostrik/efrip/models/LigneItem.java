@@ -1,8 +1,11 @@
 package com.teamyostrik.efrip.models;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 public class LigneItem {
 	private String id;
 	private int quantity;
+	@DBRef
 	private Product product;
 	public LigneItem() {
 		super();

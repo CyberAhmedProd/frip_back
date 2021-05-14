@@ -13,30 +13,38 @@ public class Order {
     private String id;
     @DBRef
     private User user;
-    @DBRef
-    private List<Product> products;
     private Address billingAddress;
     private OrderStatus status;
     private Timestamp orderedDate;
     private Timestamp shippedDate;
+    private String fullName;
+    private int mobile;
+    private String flat;
+    private String near;
     private float totalPrice;
+    @DBRef
     private List<LigneItem> listLigneItem;
+    @DBRef
+    private Payment payment;
     public Order() {
     }
-  
-	public Order(User user, List<Product> products, Address billingAddress, OrderStatus status, Timestamp orderedDate,
-			Timestamp shippedDate, float totalPrice, List<LigneItem> listLigneItem) {
+	public Order(User user, Address billingAddress, OrderStatus status, Timestamp orderedDate,
+			Timestamp shippedDate, String fullName, int mobile, String flat, String near, float totalPrice,
+			List<LigneItem> listLigneItem, Payment payment) {
 		super();
 		this.user = user;
-		this.products = products;
 		this.billingAddress = billingAddress;
 		this.status = status;
 		this.orderedDate = orderedDate;
 		this.shippedDate = shippedDate;
+		this.fullName = fullName;
+		this.mobile = mobile;
+		this.flat = flat;
+		this.near = near;
 		this.totalPrice = totalPrice;
 		this.listLigneItem = listLigneItem;
+		this.payment = payment;
 	}
-
 	public String getId() {
         return id;
     }
@@ -51,14 +59,6 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
     }
 
     public Address getBillingAddress() {
@@ -100,5 +100,39 @@ public class Order {
 	public void setListLigneItem(List<LigneItem> listLigneItem) {
 		this.listLigneItem = listLigneItem;
 	}
+
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+	public String getFullName() {
+		return fullName;
+	}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+	public int getMobile() {
+		return mobile;
+	}
+	public void setMobile(int mobile) {
+		this.mobile = mobile;
+	}
+	public String getFlat() {
+		return flat;
+	}
+	public void setFlat(String flat) {
+		this.flat = flat;
+	}
+	public String getNear() {
+		return near;
+	}
+	public void setNear(String near) {
+		this.near = near;
+	}
+	
+	
 	
 }

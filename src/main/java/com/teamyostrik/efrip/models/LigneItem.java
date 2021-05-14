@@ -2,14 +2,14 @@ package com.teamyostrik.efrip.models;
 
 public class LigneItem {
 	private String id;
-	private Short quantity;
+	private int quantity;
 	private float price;
 	private Product product;
 	public LigneItem() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public LigneItem(Short quantity, float price, Product product) {
+	public LigneItem(int quantity, float price, Product product) {
 		super();
 		this.quantity = quantity;
 		this.price = price;
@@ -22,10 +22,10 @@ public class LigneItem {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Short getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(Short quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 	public float getPrice() {

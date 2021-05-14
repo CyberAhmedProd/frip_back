@@ -41,6 +41,7 @@ public class OrderService  {
     	addressData.setStreet(order.getBillingAddress().getStreet());
     	order.setBillingAddress(addressRepository.save(addressData));
     	for (LigneItem li : order.getListLigneItem()) {
+    		
     		ligneItemRepository.save(li);
 		}
         orderRepository.save(order);

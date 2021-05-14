@@ -13,6 +13,7 @@ public class Order {
     private String id;
     @DBRef
     private User user;
+    @DBRef
     private Address billingAddress;
     private OrderStatus status;
     private Timestamp orderedDate;

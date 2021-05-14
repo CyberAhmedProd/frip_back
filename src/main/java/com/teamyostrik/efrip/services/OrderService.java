@@ -1,9 +1,11 @@
 package com.teamyostrik.efrip.services;
 
 import com.teamyostrik.efrip.models.Address;
+import com.teamyostrik.efrip.models.LigneItem;
 import com.teamyostrik.efrip.models.Order;
 import com.teamyostrik.efrip.models.User;
 import com.teamyostrik.efrip.repositories.AddressRepository;
+import com.teamyostrik.efrip.repositories.LigneItemRepository;
 import com.teamyostrik.efrip.repositories.OrderRepository;
 import com.teamyostrik.efrip.repositories.UserRepository;
 
@@ -21,7 +23,8 @@ public class OrderService  {
 	private UserRepository userRepository;
 	@Autowired
 	private AddressRepository addressRepository;
-  
+	@Autowired
+	private LigneItemRepository ligneItemRepository;
     public List<Order> getAllOrders(){
         return orderRepository.findAll();
     }
@@ -31,16 +34,15 @@ public class OrderService  {
     }
     public void addOrder(Order order) {
     	
-    	Optional<User> userData = userRepository.findById(order.getUser().getId());
-    	if(userData.isPresent()){
-    		order.setUser(userData.get());
-    	}
     	Address addressData = new Address();
     	addressData.setCity(order.getBillingAddress().getCity());
     	addressData.setCodePostal(order.getBillingAddress().getCodePostal());
     	addressData.setCountry(order.getBillingAddress().getCountry());
     	addressData.setStreet(order.getBillingAddress().getStreet());
     	order.setBillingAddress(addressRepository.save(addressData));
+    	for (LigneItem li : order.getListLigneItem()) {
+    		ligneItemRepository.save(li);
+		}
         orderRepository.save(order);
     }
     public void deleteOrder(String id) {

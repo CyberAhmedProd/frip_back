@@ -34,8 +34,9 @@ public class AuctionService {
     public void updateAuction(String id , Auction auction) throws Exception{
         if(this.auctionRepository.existsById(id)){
             this.auctionRepository.save(auction);
+        }else{
+            throw  new RuntimeException("No Auction with this id");
         }
-        throw  new RuntimeException("No Auction with this id");
     }
     public void deleteAuction(String id) throws Exception{
         if (this.auctionRepository.existsById(id)){

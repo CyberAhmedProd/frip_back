@@ -29,11 +29,7 @@ public class BidService {
             if(bid.getBidAmount() > getMaxBid(auction.getBids())){
                 Bid newBid=bidRepository.save(bid);
                 auction.getBids().add(newBid);
-                try {
-                    auctionService.updateAuction(id,auction);
-                } catch (Exception e) {
-                    throw new RuntimeException(e.getMessage());
-                }
+
             }else{
                 throw new RuntimeException("bid must be higher than " + getMaxBid(auction.getBids()));
             }

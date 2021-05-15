@@ -3,10 +3,12 @@ package com.teamyostrik.efrip.services;
 import com.teamyostrik.efrip.models.Address;
 import com.teamyostrik.efrip.models.LigneItem;
 import com.teamyostrik.efrip.models.Order;
+import com.teamyostrik.efrip.models.Payment;
 import com.teamyostrik.efrip.models.User;
 import com.teamyostrik.efrip.repositories.AddressRepository;
 import com.teamyostrik.efrip.repositories.LigneItemRepository;
 import com.teamyostrik.efrip.repositories.OrderRepository;
+import com.teamyostrik.efrip.repositories.PaymentRepository;
 import com.teamyostrik.efrip.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class OrderService  {
 	private AddressRepository addressRepository;
 	@Autowired
 	private LigneItemRepository ligneItemRepository;
+	@Autowired
+	private PaymentRepository paymentRepository;
     public List<Order> getAllOrders(){
         return orderRepository.findAll();
     }
@@ -44,6 +48,11 @@ public class OrderService  {
     		
     		ligneItemRepository.save(li);
 		}
+    	Payment paymentData = new Payment();
+    	paymentData.setPaidDate(order.getPayment().getPaidDate());
+    	paymentData.setDetails(order.getPayment().getDetails());
+    	paymentData.setTotalPaid(order.getPayment().getTotalPaid());
+    	order.setPayment(paymentRepository.save(paymentData));
         orderRepository.save(order);
     }
     public void deleteOrder(String id) {

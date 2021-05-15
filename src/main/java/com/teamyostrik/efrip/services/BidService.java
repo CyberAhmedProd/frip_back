@@ -34,6 +34,8 @@ public class BidService {
                 } catch (Exception e) {
                     throw new RuntimeException(e.getMessage());
                 }
+            }else{
+                throw new RuntimeException("bid must be higher than " + getMaxBid(auction.getBids()));
             }
 
 //            this.auctionService.addAuction(auction);

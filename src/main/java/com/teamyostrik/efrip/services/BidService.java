@@ -2,6 +2,7 @@ package com.teamyostrik.efrip.services;
 
 import com.teamyostrik.efrip.models.Auction;
 import com.teamyostrik.efrip.models.Bid;
+import com.teamyostrik.efrip.repositories.BidRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +13,13 @@ import java.util.Optional;
 public class BidService {
     private final AuctionService auctionService;
 
-    private final ProductService productService;
-
-    private final UserService userService;
+    private final BidRepository bidRepository;
 
     @Autowired
-    public BidService(AuctionService auctionService, ProductService productService, UserService userService) {
+    public BidService(AuctionService auctionService, BidRepository bidRepository) {
         this.auctionService = auctionService;
-        this.productService = productService;
-        this.userService = userService;
+        this.bidRepository = bidRepository;
+
     }
 
     public void addBid(String id , Bid bid) throws Exception{
@@ -28,7 +27,8 @@ public class BidService {
 
         auctionToUpdate.ifPresent(auction -> {
             if(bid.getBidAmount() > getMaxBid(auction.getBids())){
-                auction.getBids().add(bid);
+                Bid newBid=bidRepository.save(bid);
+                auction.getBids().add(newBid);
                 try {
                     auctionService.updateAuction(id,auction);
                 } catch (Exception e) {

@@ -35,8 +35,16 @@ public class OrderController {
         orderService.deleteOrder(id);
     }
 
-    @PutMapping(path = "/{id}")
-    public void updateOrder(@PathVariable("id") String id, Order order) {
-        orderService.updateOrder(id, order);
+    @PutMapping(path = "/shipping/{id}")
+    public void shippingOrder(@PathVariable("id") String id, Order order) {
+        orderService.sippedOrder(id, order);
+    }
+    @PutMapping(path = "/hold/{id}")
+    public void holdOrder(@PathVariable("id") String id, Order order) {
+        orderService.holdOrder(id, order);
+    }
+    @PutMapping(path = "/delivered/{id}")
+    public void deliveredOrder(@PathVariable("id") String id, Order order) {
+        orderService.deliveredOrder(id, order);
     }
 }

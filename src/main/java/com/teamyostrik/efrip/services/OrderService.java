@@ -60,11 +60,27 @@ public class OrderService  {
         orderRepository.deleteById(id);
     }
 
-    public void updateOrder(String id,Order order) {
+    public void sippedOrder(String id,Order order) {
     	Optional<Order> orderData = orderRepository.findById(id);
     	if(orderData.isPresent()) {
     		Order orderUpdate = orderData.get();
     		orderUpdate.setStatus(OrderStatus.Shipped);
+    		orderRepository.save(orderUpdate);
+    	}
+    }
+    public void holdOrder(String id,Order order) {
+    	Optional<Order> orderData = orderRepository.findById(id);
+    	if(orderData.isPresent()) {
+    		Order orderUpdate = orderData.get();
+    		orderUpdate.setStatus(OrderStatus.Hold);
+    		orderRepository.save(orderUpdate);
+    	}
+    }
+    public void deliveredOrder(String id,Order order) {
+    	Optional<Order> orderData = orderRepository.findById(id);
+    	if(orderData.isPresent()) {
+    		Order orderUpdate = orderData.get();
+    		orderUpdate.setStatus(OrderStatus.Delivered);
     		orderRepository.save(orderUpdate);
     	}
     }

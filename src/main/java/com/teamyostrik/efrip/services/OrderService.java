@@ -60,6 +60,11 @@ public class OrderService  {
     }
 
     public void updateOrder(String id,Order order) {
-       
+    	Optional<Order> orderData = orderRepository.findById(id);
+    	if(orderData.isPresent()) {
+    		Order orderUpdate = orderData.get();
+    		orderUpdate.setStatus(order.getStatus());
+    		orderRepository.save(orderUpdate);
+    	}
     }
 }

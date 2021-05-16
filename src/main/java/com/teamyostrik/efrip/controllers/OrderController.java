@@ -20,8 +20,8 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
-    @GetMapping(path = "{orderid}")
-    public Optional<Order> getOrder(@PathVariable("orderid") String id) {
+    @GetMapping(path = "/{id}")
+    public Optional<Order> getOrder(@PathVariable("id") String id) {
         return orderService.getOrder(id);
     }
 
@@ -35,8 +35,8 @@ public class OrderController {
         orderService.deleteOrder(id);
     }
 
-    @PutMapping(path = "{orderid}")
-    public void updateOrder(@PathVariable("orderid") String id, Order order) {
+    @PutMapping(path = "/{id}")
+    public void updateOrder(@PathVariable("id") String id, Order order) {
         orderService.updateOrder(id, order);
     }
 }

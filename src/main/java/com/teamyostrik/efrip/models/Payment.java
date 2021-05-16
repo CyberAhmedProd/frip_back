@@ -1,11 +1,13 @@
 package com.teamyostrik.efrip.models;
-import java.sql.Timestamp;
+
+import java.util.Date;
+
 public class Payment {
 	private String id;
-	private Timestamp paidDate;
+	private Date paidDate;
 	private float totalPaid;
 	private String details;
-	public Payment(Timestamp paidDate, float totalPaid, String details) {
+	public Payment(Date paidDate, float totalPaid, String details) {
 		super();
 		this.paidDate = paidDate;
 		this.totalPaid = totalPaid;
@@ -20,10 +22,10 @@ public class Payment {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Timestamp getPaidDate() {
+	public Date getPaidDate() {
 		return paidDate;
 	}
-	public void setPaidDate(Timestamp paidDate) {
+	public void setPaidDate(Date	 paidDate) {
 		this.paidDate = paidDate;
 	}
 	public float getTotalPaid() {

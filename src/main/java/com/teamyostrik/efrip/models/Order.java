@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Document (collection = "order")
@@ -16,8 +16,8 @@ public class Order {
     @DBRef
     private Address billingAddress;
     private OrderStatus status;
-    private Timestamp orderedDate;
-    private Timestamp shippedDate;
+    private Date orderedDate;
+    private Date shippedDate;
     private String fullName;
     private int mobile;
     private String flat;
@@ -29,8 +29,8 @@ public class Order {
     private Payment payment;
     public Order() {
     }
-	public Order(User user, Address billingAddress, OrderStatus status, Timestamp orderedDate,
-			Timestamp shippedDate, String fullName, int mobile, String flat, String near, float totalPrice,
+	public Order(User user, Address billingAddress, OrderStatus status, Date orderedDate,
+			Date shippedDate, String fullName, int mobile, String flat, String near, float totalPrice,
 			List<LigneItem> listLigneItem, Payment payment) {
 		super();
 		this.user = user;
@@ -75,16 +75,16 @@ public class Order {
 	public void setStatus(OrderStatus status) {
 		this.status = status;
 	}
-	public Timestamp getOrderedDate() {
+	public Date getOrderedDate() {
 		return orderedDate;
 	}
-	public void setOrderedDate(Timestamp orderedDate) {
+	public void setOrderedDate(Date orderedDate) {
 		this.orderedDate = orderedDate;
 	}
-	public Timestamp getShippedDate() {
+	public Date getShippedDate() {
 		return shippedDate;
 	}
-	public void setShippedDate(Timestamp shippedDate) {
+	public void setShippedDate(Date shippedDate) {
 		this.shippedDate = shippedDate;
 	}
 	public float getTotalPrice() {

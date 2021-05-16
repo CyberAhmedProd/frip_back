@@ -12,13 +12,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "api/order")
 public class OrderController {
-    private final OrderService orderService;
-
-    @Autowired
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
-    }
-
+	@Autowired
+    private OrderService orderService;
+   
     @GetMapping
     public List<Order> getAllOrders() {
         return orderService.getAllOrders();

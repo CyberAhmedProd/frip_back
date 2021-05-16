@@ -3,6 +3,7 @@ package com.teamyostrik.efrip.services;
 import com.teamyostrik.efrip.models.Address;
 import com.teamyostrik.efrip.models.LigneItem;
 import com.teamyostrik.efrip.models.Order;
+import com.teamyostrik.efrip.models.OrderStatus;
 import com.teamyostrik.efrip.models.Payment;
 import com.teamyostrik.efrip.models.User;
 import com.teamyostrik.efrip.repositories.AddressRepository;
@@ -63,7 +64,7 @@ public class OrderService  {
     	Optional<Order> orderData = orderRepository.findById(id);
     	if(orderData.isPresent()) {
     		Order orderUpdate = orderData.get();
-    		orderUpdate.setStatus(order.getStatus());
+    		orderUpdate.setStatus(OrderStatus.Shipped);
     		orderRepository.save(orderUpdate);
     	}
     }

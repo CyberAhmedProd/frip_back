@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(path = "api/order")
+@RequestMapping(path = "/api/order")
 public class OrderController {
 	@Autowired
     private OrderService orderService;

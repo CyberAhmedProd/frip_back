@@ -30,8 +30,8 @@ public class OrderController {
         orderService.addOrder(order);
     }
 
-    @DeleteMapping(path = "{orderid}")
-    public void deleteOrder(@PathVariable("orderid") String id) {
+    @DeleteMapping(path = "{id}")
+    public void deleteOrder(@PathVariable("id") String id) {
         orderService.deleteOrder(id);
     }
 

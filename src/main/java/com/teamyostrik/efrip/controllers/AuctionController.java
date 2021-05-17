@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -31,6 +32,10 @@ public class AuctionController {
         return this.auctionService.getAllAuction();
     }
 
+    @GetMapping(path="{id}")
+    public Optional<Auction> getAuctionById(@PathVariable("id") String id){
+        return this.auctionService.getAuctionById(id);
+    }
     @PostMapping(path="/add")
 
     public ResponseEntity<HashMap<Object, Object>> addAuction(@RequestBody Auction auction){

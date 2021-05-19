@@ -4,8 +4,12 @@ package com.teamyostrik.efrip.controllers;
 import com.teamyostrik.efrip.models.Order;
 import com.teamyostrik.efrip.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.http.ResponseEntity.ok;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 @CrossOrigin(origins = "*")
@@ -26,8 +30,17 @@ public class OrderController {
     }
 
     @PostMapping()
-    public void addOrder(@RequestBody Order order) {
-        orderService.addOrder(order);
+    public ResponseEntity<HashMap<Object, Object>> addOrder(@RequestBody Order order) {
+        Order orderData = orderService.addOrder(order);
+        HashMap<Object, Object> model = new HashMap<>();
+        if (orderData == null) {
+            model.put("success", 1);
+            model.put("message", "order " + order.getId() + " added successfully");
+        } else {
+            model.put("success", 0);
+            model.put("message", "no more stock!");
+        }
+        return ok(model);
     }
 
     @DeleteMapping(path = "{id}")

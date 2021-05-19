@@ -5,12 +5,14 @@ import com.teamyostrik.efrip.models.LigneItem;
 import com.teamyostrik.efrip.models.Order;
 import com.teamyostrik.efrip.models.OrderStatus;
 import com.teamyostrik.efrip.models.Payment;
+import com.teamyostrik.efrip.models.Product;
 import com.teamyostrik.efrip.models.User;
 import com.teamyostrik.efrip.repositories.AddressRepository;
 import com.teamyostrik.efrip.repositories.CartRepository;
 import com.teamyostrik.efrip.repositories.LigneItemRepository;
 import com.teamyostrik.efrip.repositories.OrderRepository;
 import com.teamyostrik.efrip.repositories.PaymentRepository;
+import com.teamyostrik.efrip.repositories.ProductRepository;
 import com.teamyostrik.efrip.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,8 @@ public class OrderService  {
 	private LigneItemRepository ligneItemRepository;
 	@Autowired
 	private PaymentRepository paymentRepository;
+	@Autowired
+	private ProductRepository productRepository;
     public List<Order> getAllOrders(){
         return orderRepository.findAll();
     }
@@ -38,7 +42,7 @@ public class OrderService  {
     public Optional<Order> getOrder(String id){
         return orderRepository.findById(id);
     }
-    public void addOrder(Order order) {
+    public Order addOrder(Order order) {
     	
     	Address addressData = new Address();
     	addressData.setCity(order.getBillingAddress().getCity());
@@ -47,7 +51,17 @@ public class OrderService  {
     	addressData.setStreet(order.getBillingAddress().getStreet());
     	order.setBillingAddress(addressRepository.save(addressData));
     	for (LigneItem li : order.getListLigneItem()) {
-    		ligneItemRepository.save(li);
+    		if(li.getQuantity() <= li.getProduct().getQuantity()) {
+    			Optional<Product> productData = productRepository.findById(li.getProduct().getId());
+    			if(productData.isPresent()) {
+    				Product productUpdate = productData.get();
+    				productUpdate.setQuantity(li.getQuantity());
+    				ligneItemRepository.save(li);
+    			}
+    		}
+    		else {
+    			return null;
+    		}
 		}
     	cartRepository.deleteByUser(order.getUser());
     	Payment paymentData = new Payment();
@@ -56,6 +70,7 @@ public class OrderService  {
     	paymentData.setTotalPaid(order.getPayment().getTotalPaid());
     	order.setPayment(paymentRepository.save(paymentData));
         orderRepository.save(order);
+        return order;
     }
     public void deleteOrder(String id) {
         orderRepository.deleteById(id);

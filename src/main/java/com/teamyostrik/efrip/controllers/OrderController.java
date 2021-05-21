@@ -42,7 +42,6 @@ public class OrderController {
         }
         return ok(model);
     }
-
     @DeleteMapping(path = "{id}")
     public void deleteOrder(@PathVariable("id") String id) {
         orderService.deleteOrder(id);

@@ -88,4 +88,28 @@ public class UserService {
     	return null;
 
     }
+    public User simpleUpdateUser(String id,User user) {
+    	Optional<User> userData = userRepository.findById(id);
+    	if(userData.isPresent()) {
+    		User userUpdate = userData.get();
+    		if(userRepository.findByUsername(user.getUsername()) != null) {
+    			userUpdate.setUsername(user.getUsername());
+    		}
+    		else {
+    			return null;
+    		}
+    		userUpdate.setEmail(user.getEmail());
+    		if(user.getPassword().length() <= 17) {
+				userUpdate.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+				
+    		}else {
+    			return null;
+    		}
+    		userUpdate.setRoles(user.getRoles());
+    		userUpdate.setStatus(user.getStatus());
+    		return userRepository.save(userUpdate);
+    	}
+    	
+    	return null;
+    }
 }

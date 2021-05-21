@@ -3,15 +3,19 @@ package com.teamyostrik.efrip.services;
 import com.teamyostrik.efrip.models.Address;
 import com.teamyostrik.efrip.models.Photo;
 import com.teamyostrik.efrip.models.Profil;
+import com.teamyostrik.efrip.models.Role;
 import com.teamyostrik.efrip.models.User;
 import com.teamyostrik.efrip.repositories.AddressRepository;
 import com.teamyostrik.efrip.repositories.PhotoRepository;
 import com.teamyostrik.efrip.repositories.ProfilRepository;
+import com.teamyostrik.efrip.repositories.RoleRepository;
 import com.teamyostrik.efrip.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +33,8 @@ public class ProfileService {
 	private AddressRepository addressRepository;
 	@Autowired
 	private PasswordEncoder bCryptPasswordEncoder;
-
+	@Autowired
+	private RoleRepository roleRepository;
 
 	    public List<Profil> getAllProfil () {
 	        return profilRepository.findAll();
@@ -115,7 +120,14 @@ public class ProfileService {
 	    				if(profil.getUser().getEmail() != null)
 	    					userUpdate.setEmail(profil.getUser().getEmail());
 	    				if(profil.getUser().getRoles() != null) {
-	    					userUpdate.setRoles((profil.getUser().getRoles()));
+	    					Role userRole = roleRepository.findByRole(profil.getUser().getRoles().iterator().next().getRole());
+	    			 	    if(userRole != null) {
+	    			 	    	userUpdate.setRoles(new HashSet<>(Arrays.asList(userRole)));
+	    			 	    }
+	    			 	    else {
+	    			 	    	Role roleData = roleRepository.save(profil.getUser().getRoles().iterator().next());
+	    			 	    	userUpdate.setRoles(new HashSet<>(Arrays.asList(roleRepository.save(roleData))));
+	    			 	    }
 	    				}
 	    				if(profil.getUser().getStatus() != null) {
 	    					userUpdate.setStatus(profil.getUser().getStatus());

@@ -44,4 +44,8 @@ public class ProfilController {
     public void updateProfile(@PathVariable("id") String id, @RequestBody Profil profil) {
         profileService.updateProfil(id, profil);
     }
+    @PutMapping(path = "/profilad/{id}")
+    public void updateProfileAdvence(@PathVariable("id") String id, @RequestBody Profil profil) {
+        profileService.updateProfilAdvence(id, profil);
+    }
 }

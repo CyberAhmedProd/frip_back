@@ -98,4 +98,51 @@ public class ProfileService {
 	    	return false;
 
 	    }
+	    public boolean updateProfilAdvence(String id,Profil profil){
+	    	Optional<Profil> profilData = profilRepository.findById(id);
+	    	if(profilData.isPresent()) {
+	    		Profil profilUpdate = profilData.get();
+	    		if(profil.getFirstName() != null)
+	    			profilUpdate.setFirstName(profil.getFirstName());
+	    		if(profil.getLastName() != null)
+	    			profilUpdate.setLastName(profil.getLastName());
+	    		if(profil.getUser().getId() != null) {
+	    			Optional<User> userData = userRepository.findById(profil.getUser().getId());
+	    			if(userData.isPresent()) {
+	    				User userUpdate = userData.get();
+	    				if(profil.getUser().getUsername() != null)
+	    					userUpdate.setUsername(profil.getUser().getUsername());
+	    				if(profil.getUser().getEmail() != null)
+	    					userUpdate.setEmail(profil.getUser().getEmail());
+	    				if(profil.getUser().getRoles() != null) {
+	    					userUpdate.setRoles((profil.getUser().getRoles()));
+	    				}
+	    				if(profil.getUser().getStatus() != null) {
+	    					userUpdate.setStatus(profil.getUser().getStatus());
+	    				}
+	    				profilUpdate.setUser(userRepository.save(userUpdate));
+	    			}
+	    		}
+	    		if(profil.getAddress().getId() != null) {
+	    			Optional<Address> addressData = addressRepository.findById(profil.getAddress().getId());
+	    			if(addressData.isPresent()) {
+	    				Address addressUpdate = addressData.get();
+	    				if(profil.getAddress().getCity()!= null)
+	    					addressUpdate.setCity(profil.getAddress().getCity());
+	    				if(profil.getAddress().getCodePostal() != null)
+	    					addressUpdate.setCodePostal(profil.getAddress().getCodePostal());
+	    				if(profil.getAddress().getCountry()!= null)
+	    					addressUpdate.setCountry(profil.getAddress().getCountry());
+	    				if(profil.getAddress().getStreet() != null)
+	    					addressUpdate.setStreet(profil.getAddress().getStreet());
+	    				profilUpdate.setAddress(addressRepository.save(addressUpdate));
+	    			}
+	    		}
+	    		profilRepository.save(profilUpdate);
+	    		return true;
+	        }
+
+	    	return false;
+
+	    }
 }

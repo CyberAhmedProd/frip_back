@@ -1,6 +1,7 @@
 package com.teamyostrik.efrip.controllers;
 
 import com.teamyostrik.efrip.models.Product;
+import com.teamyostrik.efrip.models.Role;
 import com.teamyostrik.efrip.models.User;
 import com.teamyostrik.efrip.services.ProductService;
 import com.teamyostrik.efrip.services.UserService;
@@ -17,7 +18,14 @@ public class ProductController {
 
     private final ProductService productService;
     private final UserService userService;
-
+    public boolean checkAdmin(User user){
+        for(Role role : user.getRoles()){
+            if (role.getRole().equals("Admin")){
+                return true;
+            }
+        }
+        return false;
+    }
     @Autowired
     public ProductController(ProductService productService, UserService userService) {
         this.productService = productService;
@@ -33,8 +41,7 @@ public class ProductController {
         Optional<User> user=this.userService.getUser(user_id);
         if(user.isPresent()){
             User currentuser=user.get();
-            System.out.println(currentuser.getRoles());
-            if(currentuser.getRoles().contains("Admin")){
+            if(checkAdmin(currentuser)){
                 return this.productService.getAllProducts();
             }else{
                 return this.productService.getAllByUser(currentuser);

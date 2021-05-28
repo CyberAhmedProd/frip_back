@@ -1,6 +1,7 @@
 package com.teamyostrik.efrip.services;
 
 import com.teamyostrik.efrip.models.Product;
+import com.teamyostrik.efrip.models.User;
 import com.teamyostrik.efrip.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class ProductService {
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+    public List<Product> getAllByUser(User user) {
+        return productRepository.findAllByUser(user);
     }
 
     public Optional<Product> getProduct(String id) {

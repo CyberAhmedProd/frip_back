@@ -33,6 +33,7 @@ public class ProductController {
         Optional<User> user=this.userService.getUser(user_id);
         if(user.isPresent()){
             User currentuser=user.get();
+            System.out.println(currentuser.getRoles());
             if(currentuser.getRoles().contains("Admin")){
                 return this.productService.getAllProducts();
             }else{

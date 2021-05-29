@@ -1,6 +1,8 @@
 package com.teamyostrik.efrip.models;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -27,11 +29,17 @@ public class Order {
     private List<LigneItem> listLigneItem;
     @DBRef
     private Payment payment;
+    @CreatedDate
+    private Date createdDate;
+    @LastModifiedDate
+    private Date lastModified;
+
     public Order() {
     }
-	public Order(User user, Address billingAddress, OrderStatus status, Date orderedDate,
-			Date shippedDate, String fullName, int mobile, String flat, String near, float totalPrice,
-			List<LigneItem> listLigneItem, Payment payment) {
+	
+	public Order(User user, Address billingAddress, OrderStatus status, Date orderedDate, Date shippedDate,
+			String fullName, int mobile, String flat, String near, float totalPrice, List<LigneItem> listLigneItem,
+			Payment payment, Date createdDate, Date lastModified) {
 		super();
 		this.user = user;
 		this.billingAddress = billingAddress;
@@ -45,7 +53,10 @@ public class Order {
 		this.totalPrice = totalPrice;
 		this.listLigneItem = listLigneItem;
 		this.payment = payment;
+		this.createdDate = createdDate;
+		this.lastModified = lastModified;
 	}
+
 	public String getId() {
         return id;
     }
@@ -133,6 +144,23 @@ public class Order {
 	public void setNear(String near) {
 		this.near = near;
 	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getLastModified() {
+		return lastModified;
+	}
+
+	public void setLastModified(Date lastModified) {
+		this.lastModified = lastModified;
+	}
+	
 	
 	
 	

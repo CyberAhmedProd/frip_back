@@ -51,17 +51,14 @@ public class OrderService  {
     	addressData.setStreet(order.getBillingAddress().getStreet());
     	order.setBillingAddress(addressRepository.save(addressData));
     	for (LigneItem li : order.getListLigneItem()) {
-    		if(li.getQuantity() <= li.getProduct().getQuantity()) {
+    		
     			Optional<Product> productData = productRepository.findById(li.getProduct().getId());
     			if(productData.isPresent()) {
     				Product productUpdate = productData.get();
     				productUpdate.setQuantity(li.getQuantity());
     				ligneItemRepository.save(li);
     			}
-    		}
-    		else {
-    			return null;
-    		}
+    		
 		}
     	cartRepository.deleteByUser(order.getUser());
     	Payment paymentData = new Payment();

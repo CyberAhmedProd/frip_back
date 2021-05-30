@@ -73,10 +73,7 @@ public class ProductController {
     public int countAllProduct() {
     	return productService.countProduct();
     }
-    @GetMapping(path ="/countproductuser/{id}")
-    public int countProductUser(@PathVariable("id") String id) {
-    	return productService.countProductPerUser(id);
-    }
+
 
 
 }

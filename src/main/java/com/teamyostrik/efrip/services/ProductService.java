@@ -64,13 +64,5 @@ public class ProductService {
     public int countProduct() {
     	return (int)productRepository.count();
     }
-    public int countProductPerUser(String id) {
-    	Optional<User> user = userRepository.findById(id);
-    	if(user.isPresent()) {
-    		return (int)productRepository.count(user.get());
-    	}
-    	else
-    		return 0;
-    	
-    }
+   
 }

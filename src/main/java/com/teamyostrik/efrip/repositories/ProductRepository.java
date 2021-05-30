@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends MongoRepository<Product, String> {
     List<Product> findAllByUser(User user);
+    long count(User user);
 }

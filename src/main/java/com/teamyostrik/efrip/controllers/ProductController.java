@@ -69,6 +69,14 @@ public class ProductController {
     public void updateProduct(@PathVariable("productid") String id, @RequestBody Product product) {
         productService.updateProduct(id, product);
     }
+    @GetMapping(path ="/countall")
+    public int countAllProduct() {
+    	return productService.countProduct();
+    }
+    @GetMapping(path ="/countproductuser/{id}")
+    public int countProductUser(@PathVariable("id") String id) {
+    	return productService.countProductPerUser(id);
+    }
 
 
 }

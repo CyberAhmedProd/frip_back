@@ -3,6 +3,8 @@ package com.teamyostrik.efrip.services;
 import com.teamyostrik.efrip.models.Product;
 import com.teamyostrik.efrip.models.User;
 import com.teamyostrik.efrip.repositories.ProductRepository;
+import com.teamyostrik.efrip.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +16,13 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
     private final PhotoService photoService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public ProductService(ProductRepository productRepository, PhotoService photoService) {
+    public ProductService(ProductRepository productRepository, PhotoService photoService,UserRepository userRepository) {
         this.productRepository = productRepository;
         this.photoService = photoService;
+        this.userRepository = userRepository;
     }
 
     public List<Product> getAllProducts() {
@@ -56,5 +60,17 @@ public class ProductService {
             productRepository.save(productUpdate);
         }
 
+    }
+    public int countProduct() {
+    	return (int)productRepository.count();
+    }
+    public int countProductPerUser(String id) {
+    	Optional<User> user = userRepository.findById(id);
+    	if(user.isPresent()) {
+    		return (int)productRepository.count(user.get());
+    	}
+    	else
+    		return 0;
+    	
     }
 }

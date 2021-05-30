@@ -135,21 +135,7 @@ public class ProfileService {
 	    				profilUpdate.setUser(userRepository.save(userUpdate));
 	    			}
 	    		}
-	    		if(profil.getAddress().getId() != null) {
-	    			Optional<Address> addressData = addressRepository.findById(profil.getAddress().getId());
-	    			if(addressData.isPresent()) {
-	    				Address addressUpdate = addressData.get();
-	    				if(profil.getAddress().getCity()!= null)
-	    					addressUpdate.setCity(profil.getAddress().getCity());
-	    				if(profil.getAddress().getCodePostal() != null)
-	    					addressUpdate.setCodePostal(profil.getAddress().getCodePostal());
-	    				if(profil.getAddress().getCountry()!= null)
-	    					addressUpdate.setCountry(profil.getAddress().getCountry());
-	    				if(profil.getAddress().getStreet() != null)
-	    					addressUpdate.setStreet(profil.getAddress().getStreet());
-	    				profilUpdate.setAddress(addressRepository.save(addressUpdate));
-	    			}
-	    		}
+	    		
 	    		profilRepository.save(profilUpdate);
 	    		return true;
 	        }

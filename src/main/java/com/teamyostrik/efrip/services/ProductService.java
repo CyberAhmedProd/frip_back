@@ -1,13 +1,17 @@
 package com.teamyostrik.efrip.services;
 
+import com.teamyostrik.efrip.models.SimplePage;
 import com.teamyostrik.efrip.models.Product;
 import com.teamyostrik.efrip.models.User;
 import com.teamyostrik.efrip.repositories.ProductRepository;
 import com.teamyostrik.efrip.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,5 +68,10 @@ public class ProductService {
     public int countProduct() {
     	return (int)productRepository.count();
     }
-   
+
+    public SimplePage<Product> findAll(final Pageable pageable) {
+        final Page<Product> page = productRepository.findAll(pageable);
+        return new SimplePage<>(new ArrayList<>(page.getContent()),
+                page.getTotalElements(), pageable);
+    }
 }

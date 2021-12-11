@@ -2,10 +2,16 @@ package com.teamyostrik.efrip.controllers;
 
 import com.teamyostrik.efrip.models.Product;
 import com.teamyostrik.efrip.models.Role;
+import com.teamyostrik.efrip.models.SimplePage;
 import com.teamyostrik.efrip.models.User;
 import com.teamyostrik.efrip.services.ProductService;
 import com.teamyostrik.efrip.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,6 +56,12 @@ public class ProductController {
         return null;
     }
 
+    @GetMapping(path = "/paginated")
+    public ResponseEntity<SimplePage<Product>> getAllProducts(
+            @SortDefault(sort = "createdDate",direction = Sort.Direction.DESC) @PageableDefault(size = 5) final Pageable pageable) {
+
+        return ResponseEntity.ok(productService.findAll(pageable));
+    }
     @GetMapping(path = "{productid}")
     public Optional<Product> getProductById(@PathVariable("productid") String id) {
         return productService.getProduct(id);
